@@ -1,0 +1,484 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>jquery | 定不辱使命</title><meta name="description" content="jquery"><meta name="author" content="李上"><meta name="copyright" content="李上"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="jquery"><meta name="twitter:description" content="jquery"><meta name="twitter:image" content="http://yoursite.com/img/post.jpg"><meta property="og:type" content="article"><meta property="og:title" content="jquery"><meta property="og:url" content="http://yoursite.com/2020/04/19/jquery/"><meta property="og:site_name" content="定不辱使命"><meta property="og:description" content="jquery"><meta property="og:image" content="http://yoursite.com/img/post.jpg"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css" ><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/2020/04/19/jquery/"><link rel="next" title="servlet学习笔记" href="http://yoursite.com/2020/04/18/servlet/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: false  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">4</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">17</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(/img/post.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">定不辱使命</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">jquery</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-04-19 12:38:54"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-04-19</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-04-21 21:38:20"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-04-21</span></time></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div id="article-container"><p>以下三个方法是等价的：（DOM结构渲染结束就会开始执行函数，不必等到整个页面加载完成）</p>
+<p>​     var div = document.querySelector(‘div’);</p>
+<p>​    document.addEventListener(‘DOMContentLoaded’, function(){</p>
+<p>​      div.style.display = ‘none’;</p>
+<p>​    });</p>
+<p>​    $(‘document’).ready(function(){</p>
+<p>​      $(‘div’).hide();</p>
+<p>​    });</p>
+<p>​    $(function(){</p>
+<p>​      $(‘div’).hide(); //jQuery中的jQuery与$是等价的</p>
+<p>​    });</p>
+<p><strong>原生的js所获取的对象是DOM对象，jQuery所获取的对象是一个伪数组jQuery对象,两类对象都不可以使用对方的属性，方法。</strong></p>
+<p>js对象和jQuery对象之间是可以相互转换的,转化后可以使用对方的函数属性</p>
+<p>js-&gt; jQuery(用$符号包裹)</p>
+<p>var video = document.queryselector(‘video’);</p>
+<p>$(video); //变量不能用分号括起来</p>
+<p> var divsss = document.querySelector(‘div’);</p>
+<p>​    $(divsss).hide();</p>
+<p>jQuery-&gt;js</p>
+<p>$(‘video’)[0];</p>
+<p>$(‘video’).get(0);</p>
+<p>$(‘div’).get(0).style.display = ‘none’;</p>
+<p>​    $(‘div’)[0].style.display = ‘none’;</p>
+<p>jquery的选择器方法和css是一样的</p>
+<p>jQuery与js改变css样式的方法不同：（原生js不支持批量改变样式，jQuery中封装了循环方法，可以用来批量改变样式——隐式迭代）</p>
+<p>$(‘div’).css(“background”,”red”);</p>
+<p>  var divs = document.querySelectorAll(‘div’);</p>
+<p>  console.log(divs);</p>
+<p>  for(var i = 0;i &lt; divs.length;i++){</p>
+<p>​    divs[i].style.backgroundColor = “red”;</p>
+<p>  }</p>
+<p>筛选选择器：</p>
+<p>  $(‘ul&gt;li:first’).css(“background”,”red”); </p>
+<p>  $(‘ul&gt;li:last’).css(“background”,”red”);</p>
+<p>  $(‘ul&gt;li:eq(1)’).css(“background”,”red”);    //选择固定次序的标签</p>
+<p>  $(‘ul&gt;li:odd’).css(“background”,”red”);     //选择奇数标签</p>
+<p>  $(‘ul&gt;li:even’).css(“background”,”red”);    //选择偶数标签</p>
+<p><img src="/" class="lazyload" data-src="/2020/04/19/jquery/clip_image001.png"  alt="img"></p>
+<p><img src="/" class="lazyload" data-src="file:///C:/Users/ADMINI~1/AppData/Local/Temp/msohtmlclip1/01/clip_image001.png"  alt="img"></p>
+<p>两种筛选方式的区别</p>
+<p>var index = 0;</p>
+<p>$(‘ul&gt;li:eq(‘+index+’)’).css(“background”,”red”);</p>
+<p>$(‘ul&gt;li’).eq(index).css(“background”,”red”);</p>
+<p>jQuery的排他思想（结合隐式迭代和jQuery特性）：</p>
+<p>$(‘button’).click(function(){</p>
+<p>​        $(this).css(“background”,”red”);</p>
+<p>​        $(this).siblings(“button”).css(“background”,””);</p>
+<p>​      })</p>
+<p>链式编程： $(this).css(“background”,”red”).siblings(“button”).css(“background”,””);</p>
+<body>
+
+<pre><code>&lt;div&gt;</code></pre><p>​      <ul></ul></p>
+<p>​        <li>anniu1</li></p>
+<p>​        <li>anniu2</li></p>
+<p>​      </p>
+<pre><code>&lt;img src=&quot;car.jpg&quot; alt=&quot;&quot;&gt;
+
+&lt;img src=&quot;background.jpg&quot; alt=&quot;&quot;&gt;</code></pre>  
+
+</body>
+
+<pre><code>&lt;script&gt;</code></pre><p>​    $(function(){</p>
+<p>​      $(‘li’).mouseover(function(){</p>
+<p>​        var index = $(this).index();</p>
+<p>​        $(‘img’).eq(index).show();</p>
+<p>​        $(‘img’).eq(index).siblings(‘img’).hide();</p>
+<p>​        </p>
+<p>​      })</p>
+<p>​    })</p>
+<p>  </p>
+<p>jQuery修改样式：</p>
+<p>1.参数只写属性名，返回属性值</p>
+<p>console.log($(‘div’).css(“width”));</p>
+<p>2.属性名必须加引号，属性值如果是数字可以不加引号和单位</p>
+<p>$(‘div’).css(“width”,500);</p>
+<p>3.参数可以是对象形式</p>
+<p>$(‘div’).css({width: 500,height: 600});</p>
+<p>jQuery设置类样式方法</p>
+<p>1.添加类</p>
+<p>$(‘div’).removeClass(“current”);</p>
+<p>2.移除类</p>
+<p>$(‘div’).addClass(“current”);</p>
+<p>3.切换类</p>
+<p>$(‘div’).toggleClass(“current”);</p>
+<p>原生的js中的className与jQuery中的类操作的区别</p>
+<p>1.原生的js只会className只会更改标签类名，不会迭代类名</p>
+<p>2.jQuery中的类操作addClass, removeClass是可以在原有类的基础上，增加新的类，或者删除原有的类</p>
+<p>3.toggleClass是相互切换</p>
+<style>
+
+ .two {
+
+  width: 100px;
+
+  height: 100px;
+
+  background-color: pink;
+
+ }
+
+</style>
+
+<body>
+
+  <div class="one">
+
+
+
+ </div>
+
+  <script>
+
+  $('.one').addClass('two');
+
+ </script>
+
+</body>
+
+<p>jQuery的显示，隐藏，切换</p>
+<p>show（speed,easing,fn）,hide,toggle</p>
+<p>speed:fase,normal,slow,具体时间</p>
+<p>easing: linear,swing</p>
+<p>滑动</p>
+<p>slideDown(speed,easing,fn)</p>
+<p>slide(speed,easing,fn)</p>
+<p>slideDown(speed,easing,fn)</p>
+<p>jQuery中的hover函数</p>
+<p>hover(fn1,fn2)   fn1是鼠标经过时出发的事件，fn2是鼠标离开时触发的事件</p>
+<p>stop()函数用来避免重复多次排队触发事件</p>
+<p>$(‘button’).eq(2).hover(function(){</p>
+<p>​    $(‘div’).stop().slideToggle();</p>
+<p>  })</p>
+<p>淡入淡出效果：</p>
+<p>fadeIn(speed,easing,fn)  //淡入</p>
+<p>fadeOut(speed,easing,fn)  //淡出</p>
+<p>fadeTo(speed,opacity,easing,fn)  //设置透明度</p>
+<p>fadeToggle(speed,easing,fn) //淡入淡出切换</p>
+<p>$(‘button’).eq(2).hover(function(){</p>
+<p>​    $(‘div’).stop().fadeToggle(1000);</p>
+<p>​    $(‘div’).stop().fadeTo(1000,0.5);</p>
+<p>  })</p>
+<p>自定义动画效果：</p>
+<p>animate(params,[speed],[easing],[fn])</p>
+<p>params:以对象的形式传递属性参数，属性不用引号括起来，属性采用驼峰命法</p>
+<p>$(‘button’).eq(2).hover(function(){</p>
+<p>​    $(‘div’).stop().animate({</p>
+<p>​      left: 500,</p>
+<p>​      top: 500,</p>
+<p>​      opacity: 0.5,</p>
+<p>​    },500);</p>
+<p>  })</p>
+<p>1.通过prop()获取，设置标签的<strong>固有属性</strong>：</p>
+<p>2.自定义属性只能通过attr的方式获取,设置</p>
+<p>3.data()是对内存进行操作，数据的读取是存放在内存中的</p>
+<p>console.log($(‘a’).prop(“href”));</p>
+<p>  $(‘a’).prop(“title”,”都挺好”);</p>
+<p>  console.log($(‘a’).prop(“index”)); //pror无法获取自定义属性</p>
+<p>  $(‘a’).attr(‘data-index’,’2’)</p>
+<p>  console.log($(‘a’).attr(‘data-index’));</p>
+<p>  $(‘a’).data(“username”,’张三’);</p>
+<p>  console.log($(‘a’).data(“username”));</p>
+<p>复选框的操作</p>
+<p> $(‘.checkall’).change(function(){</p>
+<p>​    $(‘.check, .checkall’).prop(“checked”,$(‘.checkall’).prop(‘checked’));</p>
+<p>  })</p>
+<p>  $(‘.check’).change(function(){</p>
+<p>​    if($(‘.check:checked’).length == $(‘.check’).length){ //:checked可以选择出所有被选中的复选框（jQuery）</p>
+<p>​      $(‘.checkall’).prop(“checked”,true);</p>
+<p>​    }else{</p>
+<p>​      $(‘.checkall’).prop(“checked”,false);</p>
+<p>​    }</p>
+<p>  })</p>
+<p>1.获取设置元素内容</p>
+<p>console.log($(‘span’).html());</p>
+<p>$(‘span’).html(“<br>qqqq<br>“);</p>
+<p>2.获取设置元素文本内容</p>
+<p>console.log($(‘span’).text());</p>
+<p>$(‘span’).text(“qqqqq”);</p>
+<p>3.获取设置表单值</p>
+<p>console.log($(‘input’).val());</p>
+<p>$(‘input’).val(“qqqqq”);</p>
+<p>jQuery遍历标签each方法</p>
+<p>$(‘div’).each(function(index, domEle){ //这里的domEle是DOM对象</p>
+<p>​    var arr = [“pink”,”blue”,”red”];</p>
+<p>​    $(domEle).css(“color”, arr[index]);</p>
+<p>  })</p>
+<p>循环数组或者对象使用的方法</p>
+<p>var arr = [“pink”,”blue”,”red”];</p>
+<p>  $.each($(‘div’),function(index,ele){</p>
+<p>​    console.log(index);</p>
+<p>​    console.log(ele);    </p>
+<p>  })</p>
+<p>  $.each({name: ‘张三’,password: 123}, function(name,ele){</p>
+<p>​    console.log(name);</p>
+<p>​    console.log(ele);   </p>
+<p>  })</p>
+<p>获取标签的尺寸大小：（参数为空就是获取值，有参数就是设置参数）</p>
+<p><img src="/" class="lazyload" data-src="/2020/04/19/jquery/clip_image002.png"  alt="img"></p>
+<p><img src="/" class="lazyload" data-src="file:///C:/Users/ADMINI~1/AppData/Local/Temp/msohtmlclip1/01/clip_image002.png"  alt="img"></p>
+<p>offset设置，获取元素偏移(相对于document的位置)</p>
+<p>\1. ele.offset().top,ele.offset().left</p>
+<p>\2. ele.offset(top:10, left:30)</p>
+<p>position获取元素相对于父亲元素的位置（只能获取，不能设置，获取的前提是该元素css中有定位，有top,left值）</p>
+<p>console.log($(‘.son’).position());</p>
+<p>scroll:设置，获取滚动界面时超出document的部分的长度</p>
+<p> var distance = $(“div”).offset().top;    </p>
+<p>  $(window).scroll(function(){</p>
+<p>​     if($(document).scrollTop() &gt;= distance) {</p>
+<p>​      $(‘.display’).fadeIn();</p>
+<p>​    }else{</p>
+<p>​       $(‘.display’).fadeOut();</p>
+<p>​    }</p>
+<p>  })</p>
+<p>跳转回顶部：</p>
+<p>$(‘.display’).click(function(){</p>
+<p>​    $(document).scrollTop(0);</p>
+<p>  })</p>
+<p>用动画跳转回顶部（只有元素可以做动画，文档document不可以）：</p>
+<p>$(‘.display’).click(function(){</p>
+<p>​    $(“body, html”).stop().animate({</p>
+<p>​    scrollTop: 0</p>
+<p>​    });</p>
+<p>  })</p>
+<p>事件注册方法：</p>
+<p>1.普通方法</p>
+<p>$(‘button’).click(function(){</p>
+<p>   $(‘div’).hide();</p>
+<p>  })</p>
+<p>2.用on来添加多个注册事件</p>
+<p>$(‘button’).on({</p>
+<p>​    click:function(){</p>
+<p>​     alert(11);</p>
+<p>​    },</p>
+<p>​    mouseenter: function(){</p>
+<p>​     alert(22);</p>
+<p>​    }</p>
+<p>  });</p>
+<p>3.同时注册多个方法</p>
+<p>$(‘button’).on(“mouseenter mouseleave”,function(){</p>
+<p>   alert(111);</p>
+<p>  });</p>
+<p>4.事件委托，li标签触发的click事件 委托给父亲ul标签 执行回调函数</p>
+<p> $(‘ul’).on(“click”,’li’,function(e){</p>
+<p>​    alert(11); </p>
+<p>  })</p>
+<p>5.通过on可以给动态生成的标签注册事件（必须是委托事件才行，不是委托事件也不能动态生成），而原始的注册方式是不可以的</p>
+<p>  $(‘ul’).on(“click”,’li’,function(e){</p>
+<p>​    alert(11); </p>
+<p>  })</p>
+<p>  // $(‘ul li’).click(function(){   //针对的是动态生成的li标签</p>
+<p>  //   alert(11); </p>
+<p>  // })</p>
+<p>  var li = $(‘<li>woshi</li>‘);</p>
+<p>  $(‘ul’).append(li);</p>
+<p>6.微博的添加删除 ，注册事件只能是越大越好？？？？？？（未解决）</p>
+<style>
+
+  li {
+
+​    display: none;
+
+  }
+
+</style>
+
+<body>
+
+<pre><code>&lt;div&gt;</code></pre><p>​    <textarea name id cols="30" rows="10" class="txt"></textarea></p>
+<p>​    <button>发布</button></p>
+<p>​    <ul></ul></p>
+  
+
+</body>
+
+<script>
+
+  $('button').click(function(){
+
+​    var li = $('<li></li>');
+
+​    li.html($('.txt').val()+"<a href='javascript:;''>删除</a>");  
+
+​    $('ul').prepend(li);
+
+​    li.slideDown(500);
+
+​    $('.txt').val('');
+
+  })
+
+  $('div').on('click',"a",function(){ //这里的父亲元素不能是li,很奇怪
+
+​    $(this).parent().slideUp(function(){
+
+​      $(this).remove();
+
+​    });
+
+  })
+
+</script>
+
+<p>通过off()解除注册事件：</p>
+<p>  $(‘button’).off(“click”);        //有关button的所有按钮全部解除注册事件</p>
+<p>  $(‘div’).off(“click”,”a”);        //a标签的click事件解除</p>
+<p>  $(‘button’).one(“click”,function(){   //只能点击触发一次</p>
+<p>​    alert(11);</p>
+<p>  })</p>
+<p>自动触发注册事件：</p>
+<body>
+
+  <input type="text">
+
+</body>
+
+<script>
+
+  $('input').on("focus",function(){
+
+  $('input').val("123");
+
+  })
+
+​    $('input').focus();
+
+​    $('input').trigger("focus");
+
+​    $('input').triggerHandler("focus");     //此事件触发是不会执行函数的默认事件（input focus的默认事件是定位光标闪烁）
+
+</script>
+
+<p>阻止默认行为：event.preventDefault() 或者 return false</p>
+<p>阻止冒泡(只有父子事件是同一个事件时，才会触发冒泡)：event.stopPropagation()</p>
+<p>  $(document).click(function(event){</p>
+<p>​    alert(11);</p>
+<p>  })</p>
+<p>  $(‘button’).mouseenter(function(event){</p>
+<p>​    alert(22);</p>
+<p>​    event.stopPropagation();</p>
+<p>  })</p>
+<p>jQuery中的拷贝：</p>
+<p>$.extend([deep], target, object1)</p>
+<p>1.deep默认为false浅拷贝，参数为true则是深拷贝</p>
+<p>2.target时拷贝到的对象，object1时被拷贝对象</p>
+<p>3.浅拷贝只是将被拷贝对象的复杂数据类型（对象）中的地址给拷贝对象，更改数据对两个对象都有影响</p>
+<p>  var data = {</p>
+<p>​    name: “张三”,</p>
+<p>​    pasword: “123”,</p>
+<p>​    msg: {</p>
+<p>​      data: “shf”</p>
+<p>​    }</p>
+<p>  };</p>
+<p>  var target = {};</p>
+<p>  $.extend(true,target,data);</p>
+<p>  target.msg.data = “李四”;//只有复杂的对象的浅拷贝才会通过地址</p>
+<p>4.深拷贝是将被拷贝对象的数据完全克隆，而不是拷贝地址，更改数据只会影响更改的对象</p>
+<p>jQuery可以通过noConflict方法来避免$库重复的冲突</p>
+<p>jQuery(function(){</p>
+<p>​    function $(ele){</p>
+<p>​      return document.querySelector(ele);   //自定义$方法</p>
+<p>​    }</p>
+<p>​    // console.log($(‘button’));</p>
+<p>​    var suibian = jQuery.noConflict();     //避免冲突</p>
+<p>​    console.log(suibian(‘button’));</p>
+<p>​    </p>
+<p>  })</p>
+<p><strong>function*</strong>_view2*(id){</p>
+<p><strong>var</strong>form=<strong>“</strong>${<strong>pageContext.request.contextPath</strong>}<strong>**/GZ/_view’method=’post’target=’test’&gt;”</strong>+</p>
+<p><strong>“+id+</strong>“‘/&gt;”**+</p>
+<p><strong>“”</strong>;</p>
+<p><em>$</em>(<strong>“body”</strong>).append(form);</p>
+<p><strong>window</strong>.open(<strong>“**</strong>${<strong>pageContext.request.contextPath</strong>}<strong>**/GZ/_view”</strong>,<strong>“test”</strong>);</p>
+<p><em>//提交表单</em></p>
+<p><em>$</em>(<strong>“#view_post”</strong>).submit();</p>
+<p>}</p>
+<p>可以在js中定义html标签，target的作用是为了确定表单是在新打开的页面被提交的</p>
+<p>Ajax:</p>
+<p>参数：</p>
+<p><img src="/" class="lazyload" data-src="/2020/04/19/jquery/clip_image003.png"  alt="url  type  data  dataType  timeout  global  String  String  PlainObject  String  Array  String  Number  Boolean  ih  iß*hit,  XMLV  HTML s Scripts JSONS JSONPS text  HiA%true "></p>
+<p>方法：</p>
+<p><img src="/" class="lazyload" data-src="file:///C:/Users/ADMINI~1/AppData/Local/Temp/msohtmlclip1/01/clip_image004.png"  alt="ih  Function (jquery.assets/clip_image004.png )  Function( result,  success  error  String textStatus,  jqXHR jqxhr )  Function ( jqXHR jqxhr,  String textStatus,  String errorThrown )  Function ( jqXHR jqxhr,  ÄJi±,  complete  String textStatus ) "></p>
+<p>简单请求：</p>
+<p><img src="/" class="lazyload" data-src="file:///C:/Users/ADMINI~1/AppData/Local/Temp/msohtmlclip1/01/clip_image005.png"  alt="url : &quot;  type: &#39;post&#39; ,  data: {key: &#39;value&#39;},  success : function (jquery.assets/clip_image005.png ) {  alert(&#39;fiÜiJ&#39;); "></p>
+<p>data支持json和string类型</p>
+<p>jquery的serizlize()方法，可以将form表单的数据变成一个字符串</p>
+<p><img src="/" class="lazyload" data-src="file:///C:/Users/ADMINI~1/AppData/Local/Temp/msohtmlclip1/01/clip_image006.png"  alt="type: &#39; post  form&#39; ) .serialize(jquery.assets/clip_image006.png),  success : function ( ) {  alert(&#39; fit%&#39;); "></p>
+<p>文件提交</p>
+<p>multiple可以上传多个文件</p>
+<p>processData:false 不处理数据</p>
+<p>contentType:false 不设置内容类型</p>
+<p>既可以将文件一个个的append,也可以直接将表单转换为一个FormData对象</p>
+<p>FormData对象set,append的区别：</p>
+<p>Set:如果key已经存在，那么本次append不执行</p>
+<p>Append:判断key是否存在，存在就替换旧值，不存在就创建</p>
+<p><img src="/" class="lazyload" data-src="file:///C:/Users/ADMINI~1/AppData/Local/Temp/msohtmlclip1/01/clip_image007.png"  alt="&lt;input  var fd = new FormData(jquery.assets/clip_image007.png);  fd . append( &quot;name&quot;, &quot;bilt&quot;);  multiple&gt;  fd . append( &quot;photo  fd. append( &quot;phot02&quot;, &#39;#f&#39; ) [O] . files  $.ajax({  url:  • /webforml.aspx&#39; ,  type: &#39;post&#39; ,  processData: false,  contentType: false,  data: fd,  success: function () { "></p>
+<p><img src="/" class="lazyload" data-src="file:///C:/Users/ADMINI~1/AppData/Local/Temp/msohtmlclip1/01/clip_image008.png"  alt="var fd = new &quot;form&quot;));  fd. append(jquery.assets/clip_image008.png &quot;CustomFie1d&quot;, &quot;This is some extra data&quot;);  $.ajax({  url: &quot;stash .php&quot; ,  type: &quot;POST&quot; ,  data: fd,  processData: false,  contentType: false "></p>
+<p><strong>JSON.stringify()</strong></p>
+<p><strong>将</strong> <strong>JavaScript</strong> <strong>对象转换为</strong> <strong>JSON</strong> <strong>字符串</strong></p>
+<p><strong>JSON.parse()</strong></p>
+<p><strong>可以将**</strong>JSON<strong>**字符串转为一个对象。</strong></p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">李上</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/04/19/jquery/">http://yoursite.com/2020/04/19/jquery/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com" target="_blank">定不辱使命</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.jpg" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2020/04/18/servlet/"><img class="next_cover lazyload" data-src="/img/servlet.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">servlet学习笔记</div></div></a></div></nav></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By 李上</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><i class="darkmode fa fa-sun-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js" ></script><script src="/js/utils.js" ></script><script src="/js/main.js" ></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>
