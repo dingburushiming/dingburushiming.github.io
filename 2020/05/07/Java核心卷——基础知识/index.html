@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>《Java核心卷一》读书笔记 | 定不辱使命</title><meta name="description" content="《Java核心卷一》读书笔记"><meta name="keywords" content="基础知识"><meta name="author" content="李上"><meta name="copyright" content="李上"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="《Java核心卷一》读书笔记"><meta name="twitter:description" content="《Java核心卷一》读书笔记"><meta name="twitter:image" content="http://yoursite.com/img/JavaCore.jpg"><meta property="og:type" content="article"><meta property="og:title" content="《Java核心卷一》读书笔记"><meta property="og:url" content="http://yoursite.com/2020/05/07/Java%E6%A0%B8%E5%BF%83%E5%8D%B7%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><meta property="og:site_name" content="定不辱使命"><meta property="og:description" content="《Java核心卷一》读书笔记"><meta property="og:image" content="http://yoursite.com/img/JavaCore.jpg"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css" ><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/2020/05/07/Java%E6%A0%B8%E5%BF%83%E5%8D%B7%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><link rel="next" title="JUC(java.util .concurrent)学习笔记" href="http://yoursite.com/2020/04/28/JUC/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">7</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">39</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java的基本程序设计结构"><span class="toc-number">1.</span> <span class="toc-text">Java的基本程序设计结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据类型"><span class="toc-number">1.1.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#整型"><span class="toc-number">1.1.1.</span> <span class="toc-text">整型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浮点类型"><span class="toc-number">1.1.2.</span> <span class="toc-text">浮点类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#char类型"><span class="toc-number">1.1.3.</span> <span class="toc-text">char类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unicode和char类型"><span class="toc-number">1.1.4.</span> <span class="toc-text">Unicode和char类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#boolean类型"><span class="toc-number">1.1.5.</span> <span class="toc-text">boolean类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-number">1.1.6.</span> <span class="toc-text">变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量初始化"><span class="toc-number">1.1.7.</span> <span class="toc-text">变量初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常量"><span class="toc-number">1.1.8.</span> <span class="toc-text">常量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运算符"><span class="toc-number">1.1.9.</span> <span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数学函数与常量"><span class="toc-number">1.1.10.</span> <span class="toc-text">数学函数与常量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数值类型之间的转换"><span class="toc-number">1.1.11.</span> <span class="toc-text">数值类型之间的转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#强制类型转换"><span class="toc-number">1.1.12.</span> <span class="toc-text">强制类型转换</span></a></li></ol></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(/img/JavaCore.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">定不辱使命</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">《Java核心卷一》读书笔记</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-05-07 16:14:28"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-05-07</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-05-07 09:27:21"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-05-07</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div id="article-container"><h1 id="Java的基本程序设计结构"><a href="#Java的基本程序设计结构" class="headerlink" title="Java的基本程序设计结构"></a>Java的基本程序设计结构</h1><p>Java区分大小写，出现大小写错误程序将无法运行</p>
+<p>Java应用程序中的全部内容都必须放置在类中</p>
+<p>关键字class后面必须紧跟类名，Java定义类名的规则很宽松，名字必须 以字母开头，后面可以跟字母和数字的任意组合，长度上基本没有限制，但是不能使用Java保留字</p>
+<p>标准的命名规范是：类名以大写字母开头的名词，如果有多个单词，每个单词的第一个字母都应该大写(CamelCase骆驼命名法)</p>
+<p>源代码的文件名必须与公共类的名字相同，并用.java作为扩展名</p>
+<p>main必须是public的，也必须是静态的，每个Java程序都必须有一个main方法</p>
+<p>main方法正常退出的退出代码为0，通过System.exit()可以设置退出代码</p>
+<p>Java编译器会忽略空白符，如果需要可以将一条语句写在多行上</p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>Java是强类型语言，每一个变量必须声明类型，Java中一共有8种基本类型，四种整形，两种浮点型，一种表示Unicode编码的字符类型char，一种表示真假的Boolean类型</p>
+<p><img src="/" class="lazyload" data-src="/2020/05/07/Java%E6%A0%B8%E5%BF%83%E5%8D%B7%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/001.png"  alt="Java核心卷——基础知识"></p>
+<h3 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h3><p>长整型数值有一个后缀L,十六进制有一个前缀OX,八进制有一个前缀0,二进制有一个前缀0B</p>
+<p>Java7开始支持数字字面量加下划线，目的在于易读，Java编译器会去除这些下划线,例如1_000_000是完全等价于1000000</p>
+<p>Java没有任何无符号unsigned形式的int,long,short,byte类型</p>
+<h3 id="浮点类型"><a href="#浮点类型" class="headerlink" title="浮点类型"></a>浮点类型</h3><p>浮点类型用于表示有小数部分的数值</p>
+<p><img src="/" class="lazyload" data-src="/2020/05/07/Java%E6%A0%B8%E5%BF%83%E5%8D%B7%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/002.png"  alt="Java核心卷——基础知识"></p>
+<p>double的精度是float的两倍，被称之为双精度数值</p>
+<p>float类型的数值有一个后缀F或f，例如3.14F；double类型的数值有一个后缀3.14D。没有后缀F的浮点数值3.14默认为double类型</p>
+<p>浮点数值计算都遵循IEEE 754规范，有三个特殊的浮点数值用于表示溢出和出错情况，例如0/0，负数的平方根结果都为NaN</p>
+<p>1.正无穷大</p>
+<p>2.负无穷大</p>
+<p>3.NaN(不是一个数字)</p>
+<p>可以通过Double.isNan()方法判断非数值</p>
+<p>浮点数值不能用于精确计算，sout(2.0-1.1)的值不是0.9而是0.8999999999999999，这种舍入误差的主要原因是因为浮点数值采用二进制系统表示，而二进制系统无法精确到1/10，就像十进制无法精确到1/3一样，数值计算不允许有任何舍入误差应该使用BigDecimal类</p>
+<h3 id="char类型"><a href="#char类型" class="headerlink" title="char类型"></a>char类型</h3><p>Unicode字符有的需要一个char值描述，有的需要两个</p>
+<p>char类型的字面量值需要被单引号括起来，例如‘A’是编码值为65所对应的字符常量</p>
+<p>\u是转义字符，转义序列可以出现在引号内(单双即可)</p>
+<p><img src="/" class="lazyload" data-src="/2020/05/07/Java%E6%A0%B8%E5%BF%83%E5%8D%B7%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/003.png"  alt="Java核心卷——基础知识"></p>
+<p>“\u022+\u0022”不是“+” 字符串，而是” “+” “两个空字符相加</p>
+<p>不要将转义序列放到注释中，可能导致错误。例如\u00A0在编译时会被替换成一个换行符又例如//C:\users也会产生一个语法错误，因为\u后面并未跟着4个16进制数</p>
+<h3 id="Unicode和char类型"><a href="#Unicode和char类型" class="headerlink" title="Unicode和char类型"></a>Unicode和char类型</h3><p>编码标准：美国的ASCII，西欧的ISO 8859-1,俄罗斯的KOI-8,中国的GB 18030和BIG-5</p>
+<p>不同编码标准产生的问题：</p>
+<p>1.任意确定的代码在不同编码环境下可能对应不同的字母</p>
+<p>2.同一字符，不同的编码标准使用的字节长度可能不同</p>
+<p>Unicode打破了传统字符编码机制的限制，Unicode俗称万国码，描述了所有字符，常见的类型又UTF-8,解决了上述问题</p>
+<h3 id="boolean类型"><a href="#boolean类型" class="headerlink" title="boolean类型"></a>boolean类型</h3><p>boolean类型有两个值：false,true,整型与布尔值之间不能相互转换</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>Java变量必须是字母开头并且由字母和数字构成，这里的字母不仅仅包含26个英文字符，还有Unicode中的字符，下划线_,圆周率都属于Java广义范围上的字母</p>
+<p>变量名中所有的字符都是有意义的，并且大小写敏感，变量名的长度基本没有限制</p>
+<p>可以通过Character类的isJavaIdenifierStart和isJavaIdentierPart方法来检查那些Unicode字符属于Java中的”字母“</p>
+<p>尽管$属于Java字母，但是它只用于在Java编译器或其他生成工具中使用</p>
+<p>可以在一行中声明多个变量，例如int i,j;但是不提倡，逐一声明变量可以提高程序的可读性</p>
+<h3 id="变量初始化"><a href="#变量初始化" class="headerlink" title="变量初始化"></a>变量初始化</h3><p>变量的声明尽可能的靠近该变量第一次使用的地方，这是一种良好的编程习惯</p>
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>final声明后只能被赋值一次，赋值后就不可再更改了，一般常量名使用全大写</p>
+<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><p>当参与/运算 两个操作数都是整数时，表示整数除法，否则表示浮点除法</p>
+<p>整数被0除将会产生一个异常，而浮点数被0除将会得到无穷大或NAN结果</p>
+<p>浮点型数据计算 的准确性是很难保证的，因为不同芯片计算时使用的寄存器位数存在差异，使用strictfp关键字s可以确保精确计算</p>
+<h3 id="数学函数与常量"><a href="#数学函数与常量" class="headerlink" title="数学函数与常量"></a>数学函数与常量</h3><p>幂运算Math.pow(x,a)</p>
+<p>两个参数是double类型，结果也是double类型</p>
+<h3 id="数值类型之间的转换"><a href="#数值类型之间的转换" class="headerlink" title="数值类型之间的转换"></a>数值类型之间的转换</h3><p><img src="/" class="lazyload" data-src="/2020/05/07/Java%E6%A0%B8%E5%BF%83%E5%8D%B7%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/005.png"  alt="Java核心卷——基础知识"></p>
+<p>实心箭头表示不会丢失精度，虚线箭头表示可能会丢失精度</p>
+<p>大转小会损失精度，小转大不会损失精度</p>
+<p><img src="/" class="lazyload" data-src="/2020/05/07/Java%E6%A0%B8%E5%BF%83%E5%8D%B7%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/006.png"  alt="Java核心卷——基础知识"></p>
+<h3 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h3><p>低精度转向高精度需要强转，方法是在()中给出想要转换的目标类型</p>
+<p><img src="/" class="lazyload" data-src="/2020/05/07/Java%E6%A0%B8%E5%BF%83%E5%8D%B7%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/007.png"  alt="Java核心卷——基础知识"></p>
+<p>浮点型舍入运算，round舍入操作的结果为long</p>
+<p><img src="/" class="lazyload" data-src="/2020/05/07/Java%E6%A0%B8%E5%BF%83%E5%8D%B7%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/008.png"  alt="Java核心卷——基础知识"></p>
+<p>注意：将一个数值强行转换为另外一个数值，如果超出了目标类型的表示范围，结果就会截断成一个完全不同的值，例如(byte)300的实际值为44</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">李上</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/05/07/Java%E6%A0%B8%E5%BF%83%E5%8D%B7%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">http://yoursite.com/2020/05/07/Java%E6%A0%B8%E5%BF%83%E5%8D%B7%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com" target="_blank">定不辱使命</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">基础知识</a></div><div class="post_share"><div class="social-share" data-image="/img/springmvc.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.jpg" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2020/04/28/JUC/"><img class="next_cover lazyload" data-src="/img/juc.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">JUC(java.util .concurrent)学习笔记</div></div></a></div></nav></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By 李上</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><i class="darkmode fa fa-sun-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js" ></script><script src="/js/utils.js" ></script><script src="/js/main.js" ></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>
