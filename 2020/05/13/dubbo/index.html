@@ -1,0 +1,207 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dubbo入门学习 | 定不辱使命</title><meta name="description" content="Dubbo入门学习"><meta name="author" content="李上"><meta name="copyright" content="李上"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Dubbo入门学习"><meta name="twitter:description" content="Dubbo入门学习"><meta name="twitter:image" content="http://yoursite.com/img/dubbo.jpg"><meta property="og:type" content="article"><meta property="og:title" content="Dubbo入门学习"><meta property="og:url" content="http://yoursite.com/2020/05/13/dubbo/"><meta property="og:site_name" content="定不辱使命"><meta property="og:description" content="Dubbo入门学习"><meta property="og:image" content="http://yoursite.com/img/dubbo.jpg"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css" ><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/2020/05/13/dubbo/"><link rel="next" title="Spring源码分析" href="http://yoursite.com/2020/05/11/spring-source-code/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">10</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">52</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#服务注册中心Zookeeper"><span class="toc-number">1.</span> <span class="toc-text">服务注册中心Zookeeper</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#流程说明"><span class="toc-number">1.1.</span> <span class="toc-text">流程说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装zookeeper"><span class="toc-number">1.2.</span> <span class="toc-text">安装zookeeper</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一个简单的dubbo案列"><span class="toc-number">2.</span> <span class="toc-text">一个简单的dubbo案列</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总体流程"><span class="toc-number">3.</span> <span class="toc-text">总体流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#监控"><span class="toc-number">3.1.</span> <span class="toc-text">监控</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#公共接口抽离"><span class="toc-number">3.2.</span> <span class="toc-text">公共接口抽离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务提供方"><span class="toc-number">3.3.</span> <span class="toc-text">服务提供方</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务消费方"><span class="toc-number">3.4.</span> <span class="toc-text">服务消费方</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置文件的覆盖策略"><span class="toc-number">3.5.</span> <span class="toc-text">配置文件的覆盖策略</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SpringBoot整合dubbo"><span class="toc-number">4.</span> <span class="toc-text">SpringBoot整合dubbo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#方式一：基于注解"><span class="toc-number">4.1.</span> <span class="toc-text">方式一：基于注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方式二：基于xml文件"><span class="toc-number">4.2.</span> <span class="toc-text">方式二：基于xml文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法三：基于配置类"><span class="toc-number">4.3.</span> <span class="toc-text">方法三：基于配置类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#高可用"><span class="toc-number">5.</span> <span class="toc-text">高可用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Zookeeper宕机"><span class="toc-number">5.1.</span> <span class="toc-text">Zookeeper宕机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#负载均衡"><span class="toc-number">5.2.</span> <span class="toc-text">负载均衡</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用方法"><span class="toc-number">5.2.1.</span> <span class="toc-text">使用方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务降级"><span class="toc-number">5.3.</span> <span class="toc-text">服务降级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务容错"><span class="toc-number">5.4.</span> <span class="toc-text">服务容错</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hystrix"><span class="toc-number">5.4.1.</span> <span class="toc-text">Hystrix</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RPC-amp-Netty原理"><span class="toc-number">6.</span> <span class="toc-text">RPC&amp;Netty原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一次完整的同步RPC调用流程"><span class="toc-number">6.1.</span> <span class="toc-text">一次完整的同步RPC调用流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#各种IO的区别"><span class="toc-number">6.2.</span> <span class="toc-text">各种IO的区别</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(/img/dubbo.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">定不辱使命</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">Dubbo入门学习</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-05-13 13:46:56"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-05-13</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-05-18 15:36:51"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-05-18</span></time></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div id="article-container"><h1 id="服务注册中心Zookeeper"><a href="#服务注册中心Zookeeper" class="headerlink" title="服务注册中心Zookeeper"></a>服务注册中心Zookeeper</h1><p>Zookeeper是Apache Hadoop的子项目，是一个树型的目录服务，支持变更推送，适合作为Dubbo服务的注册中心</p>
+<p><img src="/" class="lazyload" data-src="/2020/05/13/dubbo/001.png"  alt="dubbo"></p>
+<h2 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h2><ul>
+<li>服务器提供者Provider启动时，向/dubbo/com.foo.BarService/providers目录下写入自己的URL地址</li>
+<li>服务消费者Consumer启动时，订阅/dubbo/com.foo.BarService/providers目录下的提供者URL地址。并向/dubbo/com.foo.BarService/consumers目录下写入自己的URL地址</li>
+<li>监控中心Monitor启动时，订阅/dubbo/com.foo.BarService目录下的所有提供者和消费者URL地址</li>
+</ul>
+<h2 id="安装zookeeper"><a href="#安装zookeeper" class="headerlink" title="安装zookeeper"></a>安装zookeeper</h2><ol>
+<li>下载3.4.6版本的zookeeper <a href="http://archive.apache.org/dist/zookeeper/zookeeper-3.4.6/" target="_blank" rel="noopener">http://archive.apache.org/dist/zookeeper/zookeeper-3.4.6/</a> </li>
+<li>将文件夹放到Linux的/usr/local目录下</li>
+<li>在zookeeper-3.4.6目录下，创建data目录</li>
+<li>进入conf目录，把zoo_sample.cfg改名为zoo.cfg</li>
+<li>打开zoo.cfg文件，修改data属性：dataDir=/usr/local/zookeeper-3.4.6/data</li>
+<li>使用chmod 777 zkServer.sh给系统读写的可执行权限</li>
+<li>./zkServer.sh start启动zookeeper</li>
+<li>./zkServer.sh status查看是否启动成功</li>
+</ol>
+<h1 id="一个简单的dubbo案列"><a href="#一个简单的dubbo案列" class="headerlink" title="一个简单的dubbo案列"></a>一个简单的dubbo案列</h1><h1 id="总体流程"><a href="#总体流程" class="headerlink" title="总体流程"></a>总体流程</h1><p><img src="/" class="lazyload" data-src="/2020/05/13/dubbo/002.png"  alt="dubbo"></p>
+<h2 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h2><p>主要是监测zookeeper，进而监测所有服务提供方和消费方</p>
+<p>修改application.properties配置文件，运行dubbo-admin项目，通过1270.0.1:7001(本地启动)</p>
+<p><img src="/" class="lazyload" data-src="/2020/05/13/dubbo/003.png"  alt="dubbo"></p>
+<h2 id="公共接口抽离"><a href="#公共接口抽离" class="headerlink" title="公共接口抽离"></a>公共接口抽离</h2><p>将微服务中共用的接口，类抽离到一个新的项目中，各个微服务项目通过maven依赖获取公共数据</p>
+<h2 id="服务提供方"><a href="#服务提供方" class="headerlink" title="服务提供方"></a>服务提供方</h2><p>所有的微服务(提供方，服务方)都需要引入公共接口，dubbo,zookeeper的maven依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--导入公共接口--&gt;</span><br><span class="line"> &lt;dependency&gt;</span><br><span class="line">  	&lt;groupId&gt;com.atguigu.gmall&lt;&#x2F;groupId&gt;</span><br><span class="line">  	&lt;artifactId&gt;gmall-interface&lt;&#x2F;artifactId&gt;</span><br><span class="line">  	&lt;version&gt;0.0.1-SNAPSHOT&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">  	</span><br><span class="line">&lt;!-- 引入dubbo --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.alibaba&lt;&#x2F;groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;dubbo&lt;&#x2F;artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.6.2&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">	</span><br><span class="line">&lt;!-- 注册中心使用的是zookeeper，引入操作zookeeper的客户端端 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.apache.curator&lt;&#x2F;groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;curator-framework&lt;&#x2F;artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.12.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="服务消费方"><a href="#服务消费方" class="headerlink" title="服务消费方"></a>服务消费方</h2><p>配置文件的命名空间非常重要，相同与导包，不能写错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;</span><br><span class="line">	   xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">	   xmlns:dubbo&#x3D;&quot;http:&#x2F;&#x2F;dubbo.apache.org&#x2F;schema&#x2F;dubbo&quot;</span><br><span class="line">	   xmlns:context&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&quot;</span><br><span class="line">	   xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans</span><br><span class="line">            http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans-4.3.xsd</span><br><span class="line">            http:&#x2F;&#x2F;dubbo.apache.org&#x2F;schema&#x2F;dubbo</span><br><span class="line">            http:&#x2F;&#x2F;dubbo.apache.org&#x2F;schema&#x2F;dubbo&#x2F;dubbo.xsd</span><br><span class="line">			http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context</span><br><span class="line">			http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&#x2F;spring-context.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;配置包扫描，是spring-context的功能，包扫描的目的是让consumer.xml文件中的配置在指定范围内生效</span><br><span class="line">&lt;context:component-scan base-package&#x3D;&quot;com.atguigu.gmall.service.impl&quot;&#x2F;&gt;</span><br><span class="line">&#x2F;&#x2F;指定服务名称</span><br><span class="line">&lt;dubbo:application name&#x3D;&quot;order-service-consumer&quot;&gt;&lt;&#x2F;dubbo:application&gt;</span><br><span class="line">&#x2F;&#x2F;配置zookeeper</span><br><span class="line">&lt;dubbo:registry address&#x3D;&quot;zookeeper:&#x2F;&#x2F;47.101.63.177:2181&quot;&gt;&lt;&#x2F;dubbo:registry&gt;</span><br><span class="line">&#x2F;&#x2F;调用远程方法</span><br><span class="line">&lt;dubbo:reference interface&#x3D;&quot;com.atguigu.gmall.service.UserService&quot;</span><br><span class="line">		id&#x3D;&quot;userService&quot; timeout&#x3D;&quot;5000&quot; retries&#x3D;&quot;3&quot; version&#x3D;&quot;*&quot;&gt;</span><br><span class="line">&lt;&#x2F;dubbo:reference&gt;</span><br><span class="line">	</span><br><span class="line">&lt;&#x2F;beans&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置文件的覆盖策略"><a href="#配置文件的覆盖策略" class="headerlink" title="配置文件的覆盖策略"></a>配置文件的覆盖策略</h2><p>虚拟机参数&gt;xml配置文件&gt;properties文件</p>
+<p>方法级&gt;接口级&gt;全局配置，越具体的优先级越高</p>
+<p>消费方&gt;提供方</p>
+<p>级别一样，则消费者优先，提供方次之，方法级别不同则按照级别，方法级别优先级高于服务消费/提供方</p>
+<h1 id="SpringBoot整合dubbo"><a href="#SpringBoot整合dubbo" class="headerlink" title="SpringBoot整合dubbo"></a>SpringBoot整合dubbo</h1><h2 id="方式一：基于注解"><a href="#方式一：基于注解" class="headerlink" title="方式一：基于注解"></a>方式一：基于注解</h2><p>导入dubbo-starter,在application.properties配置属性，使用@Service暴露服务，使用@Reference引入服务</p>
+<table>
+<thead>
+<tr>
+<th>注解</th>
+<th>作用</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@Service</td>
+<td>暴露注解</td>
+<td>标注在service方法上，将该方法暴露出来供其他服务远程调用</td>
+</tr>
+<tr>
+<td>@EnableDubbo</td>
+<td>开启基于注解的dubbo</td>
+<td>标注在SpringBoot启动类上</td>
+</tr>
+<tr>
+<td>@Reference</td>
+<td>替代@Autowired，远程调用类对象</td>
+<td>标注在bean上</td>
+</tr>
+</tbody></table>
+<p>基于注解的application.properties全局配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dubbo.application.name&#x3D;user-service-provider</span><br><span class="line">dubbo.registry.address&#x3D;47.101.63.177:2181</span><br><span class="line">dubbo.registry.protocol&#x3D;zookeeper</span><br><span class="line"></span><br><span class="line">dubbo.protocol.name&#x3D;dubbo</span><br><span class="line">dubbo.protocol.port&#x3D;20881</span><br><span class="line"></span><br><span class="line">dubbo.scan.base-packages&#x3D;com.atguigu.gmall</span><br></pre></td></tr></table></figure>
+
+<h2 id="方式二：基于xml文件"><a href="#方式二：基于xml文件" class="headerlink" title="方式二：基于xml文件"></a>方式二：基于xml文件</h2><p>保留dubbo的xml文件，在启动类上标注@ImportResource(locations=”classpath:provider.xml”)引入相关配置</p>
+<p>provider.xml配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;</span><br><span class="line">	xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">	xmlns:dubbo&#x3D;&quot;http:&#x2F;&#x2F;code.alibabatech.com&#x2F;schema&#x2F;dubbo&quot;</span><br><span class="line">	xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd</span><br><span class="line">		http:&#x2F;&#x2F;dubbo.apache.org&#x2F;schema&#x2F;dubbo http:&#x2F;&#x2F;dubbo.apache.org&#x2F;schema&#x2F;dubbo&#x2F;dubbo.xsd</span><br><span class="line">		http:&#x2F;&#x2F;code.alibabatech.com&#x2F;schema&#x2F;dubbo http:&#x2F;&#x2F;code.alibabatech.com&#x2F;schema&#x2F;dubbo&#x2F;dubbo.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 1、指定当前服务&#x2F;应用的名字（同样的服务名字相同，不要和别的服务同名） --&gt;</span><br><span class="line">	&lt;dubbo:application name&#x3D;&quot;boot-user-service-provider&quot;&gt;&lt;&#x2F;dubbo:application&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 2、指定注册中心的位置 --&gt;</span><br><span class="line">	&lt;!-- &lt;dubbo:registry address&#x3D;&quot;zookeeper:&#x2F;&#x2F;127.0.0.1:2181&quot;&gt;&lt;&#x2F;dubbo:registry&gt; --&gt;</span><br><span class="line">	&lt;dubbo:registry protocol&#x3D;&quot;zookeeper&quot; address&#x3D;&quot;47.101.63.177:2181&quot;&gt;&lt;&#x2F;dubbo:registry&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 3、指定通信规则（通信协议？通信端口） --&gt;</span><br><span class="line">	&lt;dubbo:protocol name&#x3D;&quot;dubbo&quot; port&#x3D;&quot;20882&quot;&gt;&lt;&#x2F;dubbo:protocol&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 4、暴露服务   ref：指向服务的真正的实现对象 --&gt;</span><br><span class="line">	&lt;dubbo:service interface&#x3D;&quot;com.atguigu.gmall.service.UserService&quot;</span><br><span class="line">		ref&#x3D;&quot;userServiceImpl01&quot; timeout&#x3D;&quot;1000&quot; version&#x3D;&quot;1.0.0&quot;&gt;</span><br><span class="line">		&lt;dubbo:method name&#x3D;&quot;getUserAddressList&quot; timeout&#x3D;&quot;1000&quot;&gt;&lt;&#x2F;dubbo:method&gt;</span><br><span class="line">	&lt;&#x2F;dubbo:service&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!--统一设置服务提供方的规则  --&gt;</span><br><span class="line">	&lt;dubbo:provider timeout&#x3D;&quot;1000&quot;&gt;&lt;&#x2F;dubbo:provider&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 服务的实现 --&gt;</span><br><span class="line">	&lt;bean id&#x3D;&quot;userServiceImpl01&quot; class&#x3D;&quot;com.atguigu.gmall.service.impl.UserServiceImpl&quot;&gt;&lt;&#x2F;bean&gt;</span><br><span class="line">&lt;&#x2F;beans&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法三：基于配置类"><a href="#方法三：基于配置类" class="headerlink" title="方法三：基于配置类"></a>方法三：基于配置类</h2><p>将每一个组件手动创建到容器中，在启动类上标注@EnableDubbo(scanBasePackages=”com.atguigu.gmall”)设置扫描范围，范围内的配置文件才会生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class MyDubboConfig &#123;</span><br><span class="line">    &#x2F;&#x2F;指定当前服务&#x2F;应用的名字（同样的服务名字相同，不要和别的服务同名）</span><br><span class="line">	@Bean</span><br><span class="line">	public ApplicationConfig applicationConfig() &#123;</span><br><span class="line">		ApplicationConfig applicationConfig &#x3D; new ApplicationConfig();</span><br><span class="line">		applicationConfig.setName(&quot;boot-user-service-provider&quot;);</span><br><span class="line">		return applicationConfig;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;指定注册中心的位置</span><br><span class="line">	@Bean</span><br><span class="line">	public RegistryConfig registryConfig() &#123;</span><br><span class="line">		RegistryConfig registryConfig &#x3D; new RegistryConfig();</span><br><span class="line">		registryConfig.setProtocol(&quot;zookeeper&quot;);</span><br><span class="line">		registryConfig.setAddress(&quot;47.101.63.177:2181&quot;);</span><br><span class="line">		return registryConfig;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;指定通信规则（通信协议？通信端口）</span><br><span class="line">	@Bean</span><br><span class="line">	public ProtocolConfig protocolConfig() &#123;</span><br><span class="line">		ProtocolConfig protocolConfig &#x3D; new ProtocolConfig();</span><br><span class="line">		protocolConfig.setName(&quot;dubbo&quot;);</span><br><span class="line">		protocolConfig.setPort(20882);</span><br><span class="line">		return protocolConfig;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;暴露服务   ref：指向服务的真正的实现对象</span><br><span class="line">	@Bean</span><br><span class="line">	public ServiceConfig&lt;UserService&gt; userServiceConfig(UserService userService)&#123;</span><br><span class="line">		ServiceConfig&lt;UserService&gt; serviceConfig &#x3D; new ServiceConfig&lt;&gt;();</span><br><span class="line">		serviceConfig.setInterface(UserService.class);</span><br><span class="line">		serviceConfig.setRef(userService);</span><br><span class="line">		serviceConfig.setVersion(&quot;1.0.0&quot;);</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F;配置每一个method的信息</span><br><span class="line">		MethodConfig methodConfig &#x3D; new MethodConfig();</span><br><span class="line">		methodConfig.setName(&quot;getUserAddressList&quot;);</span><br><span class="line">		methodConfig.setTimeout(1000);</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F;将method的设置关联到service配置中</span><br><span class="line">		List&lt;MethodConfig&gt; methods &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">		methods.add(methodConfig);</span><br><span class="line">		serviceConfig.setMethods(methods);</span><br><span class="line">		return serviceConfig;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="高可用"><a href="#高可用" class="headerlink" title="高可用"></a>高可用</h1><h2 id="Zookeeper宕机"><a href="#Zookeeper宕机" class="headerlink" title="Zookeeper宕机"></a>Zookeeper宕机</h2><p>Zookeeper只是一个数据记录中心，如果宕机，本地服务如果有缓存会记录目标服务的位置；也可以在调用时直接指定目标服务，采用直连的方式跳过Zookeeper，即调用服务时使用@Reference(url = “127.0.0.1:20882”)，直接获取目标服务。</p>
+<h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>基于权重的随机负载均衡机制(Random LoadBalance)</p>
+<p><img src="/" class="lazyload" data-src="/2020/05/13/dubbo/005.png"  alt="dubbo"></p>
+<p>基于权重的轮询负载均衡机制(RoundRobin LoadBalance)</p>
+<p> <img src="/" class="lazyload" data-src="/2020/05/13/dubbo/006.png"  alt="dubbo"> </p>
+<p>最少活跃数-负载均衡机制(LeastActive LoadBalance)</p>
+<p> <img src="/" class="lazyload" data-src="/2020/05/13/dubbo/007.png"  alt="dubbo"> </p>
+<p>一致性hash-负载均衡机制(ConsistentHash LoadBalance)</p>
+<p> <img src="/" class="lazyload" data-src="/2020/05/13/dubbo/008.png"  alt="dubbo"> </p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>在@Reference中设置被调用类型，random，roundrobin，leastactive</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Reference(loadbalance&#x3D;&quot;random&quot;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="服务降级"><a href="#服务降级" class="headerlink" title="服务降级"></a>服务降级</h2><p>服务降级是针对消费方的服务</p>
+<p>服务器压力剧增的情况下，根据具体情况，对一些服务和页面有策略的不处理或换种简单的方式处理，从而释放服务器资源以保证核心交易正常运行或高效运作</p>
+<p>不调用方法直接返回null,mock=force:return+null</p>
+<p>消费方对该服务方法的调用直接返回null值，不发起远程调用，用来屏蔽不重要服务不可用时对调用方的影响</p>
+<h2 id="服务容错"><a href="#服务容错" class="headerlink" title="服务容错"></a>服务容错</h2><p>调用失败后返回null,mock=fail:return+null</p>
+<p>消费方调用服务方法的失败后，再返回null值，用来容忍不重要服务不稳定时对调用方的影响</p>
+<h3 id="Hystrix"><a href="#Hystrix" class="headerlink" title="Hystrix"></a>Hystrix</h3><p>导入Hystrix启动器依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>配置启动类注解</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@EnableHystrix</span><br></pre></td></tr></table></figure>
+
+<p>在方法上配置异常时处理容错的注解，没错正常运行，有错报错或者执行回调方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@HystrixCommand</span><br><span class="line">&#x2F;&#x2F;可以在注解中配置回调方法，处理发生异常</span><br><span class="line">@HystrixCommand(fallbackMethod&#x3D;&quot;hello&quot;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="RPC-amp-Netty原理"><a href="#RPC-amp-Netty原理" class="headerlink" title="RPC&amp;Netty原理"></a>RPC&amp;Netty原理</h1><h2 id="一次完整的同步RPC调用流程"><a href="#一次完整的同步RPC调用流程" class="headerlink" title="一次完整的同步RPC调用流程"></a>一次完整的同步RPC调用流程</h2><p><img src="/" class="lazyload" data-src="/2020/05/13/dubbo/009.png"  alt="dubbo"></p>
+<ol>
+<li><p>服务消费方client调用以本地调用方式调用该服务</p>
+</li>
+<li><p>client stub接收到调用后负责将方法，参数等组装成能够进行网络传输的消息体</p>
+</li>
+<li><p>client stub找到服务地址，并将消息发送到服务端</p>
+</li>
+<li><p>server stub接收到消息后进行解码</p>
+</li>
+<li><p>server stub根据解码结果调用本地的服务</p>
+</li>
+<li><p>本地服务执行并将结果返回给server stub</p>
+</li>
+<li><p>server stub将返回结果打包成消息并发送至消费方</p>
+</li>
+<li><p>client stub接收到消息，并进行解码</p>
+</li>
+<li><p>服务消费方得到最终结果</p>
+<p>底层网路通讯是基于框架Netty,而Netty是基于Java的NIO(Non-Blocking IO,非阻塞IO )</p>
+</li>
+</ol>
+<h2 id="各种IO的区别"><a href="#各种IO的区别" class="headerlink" title="各种IO的区别"></a>各种IO的区别</h2><p>IO( Input/Output)阻塞IO</p>
+<p>BIO(Blocking  IO)阻塞IO</p>
+<p><img src="/" class="lazyload" data-src="/2020/05/13/dubbo/010.png"  alt="dubbo"></p>
+<p>NIO(Non-Blocking IO)非阻塞IO</p>
+<p><img src="/" class="lazyload" data-src="/2020/05/13/dubbo/011.png"  alt="dubbo"></p>
+<p>Selector 一般称 为选择器，也可以翻译为 多路复用器</p>
+<p>Connect（连接就绪）,Accept（接受就绪）,Read（读就绪）,Write（写就绪）</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">李上</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/05/13/dubbo/">http://yoursite.com/2020/05/13/dubbo/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com" target="_blank">定不辱使命</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/dubbo.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.jpg" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2020/05/11/spring-source-code/"><img class="next_cover lazyload" data-src="/img/post.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Spring源码分析</div></div></a></div></nav></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By 李上</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><i class="darkmode fa fa-sun-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js" ></script><script src="/js/utils.js" ></script><script src="/js/main.js" ></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>
