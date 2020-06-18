@@ -1,0 +1,589 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Spring Boot学习笔记 | 定不辱使命</title><meta name="description" content="Spring Boot学习笔记"><meta name="author" content="李上"><meta name="copyright" content="李上"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Spring Boot学习笔记"><meta name="twitter:description" content="Spring Boot学习笔记"><meta name="twitter:image" content="http://yoursite.com/img/springboot.jpg"><meta property="og:type" content="article"><meta property="og:title" content="Spring Boot学习笔记"><meta property="og:url" content="http://yoursite.com/2020/06/04/springboot/"><meta property="og:site_name" content="定不辱使命"><meta property="og:description" content="Spring Boot学习笔记"><meta property="og:image" content="http://yoursite.com/img/springboot.jpg"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css" ><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/2020/06/04/springboot/"><link rel="prev" title="计算机网络学习笔记" href="http://yoursite.com/2020/06/04/csnet/"><link rel="next" title="Netty学习笔记" href="http://yoursite.com/2020/05/22/netty/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">15</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">52</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#相关概念"><span class="toc-number">1.</span> <span class="toc-text">相关概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#springboot的优点"><span class="toc-number">1.1.</span> <span class="toc-text">springboot的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微服务"><span class="toc-number">1.2.</span> <span class="toc-text">微服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringBoot简化打包发布方法"><span class="toc-number">1.3.</span> <span class="toc-text">SpringBoot简化打包发布方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringBoot启动器"><span class="toc-number">1.4.</span> <span class="toc-text">SpringBoot启动器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#spring-boot-starter-parent"><span class="toc-number">1.4.1.</span> <span class="toc-text">spring-boot-starter-parent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spring-boot-starter-web"><span class="toc-number">1.4.2.</span> <span class="toc-text">spring-boot-starter-web</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#注解"><span class="toc-number">2.</span> <span class="toc-text">注解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringBootApplication"><span class="toc-number">2.1.</span> <span class="toc-text">@SpringBootApplication</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringBootConfiguration"><span class="toc-number">2.2.</span> <span class="toc-text">@SpringBootConfiguration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Configuration"><span class="toc-number">2.2.1.</span> <span class="toc-text">@Configuration</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EnableAutoConfiguration"><span class="toc-number">2.3.</span> <span class="toc-text">@EnableAutoConfiguration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AutoConfigurationPackage"><span class="toc-number">2.3.1.</span> <span class="toc-text">@AutoConfigurationPackage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Import-AutoConfigurationPackages-Registrar-class"><span class="toc-number">2.3.2.</span> <span class="toc-text">@Import(AutoConfigurationPackages.Registrar.class)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Import-EnableAutoConfigurationImportSelector-class"><span class="toc-number">2.3.3.</span> <span class="toc-text">@Import(EnableAutoConfigurationImportSelector.class)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自动导入配置类的方法"><span class="toc-number">2.3.4.</span> <span class="toc-text">自动导入配置类的方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#spring-Initializer快速创建一个SpringBoot项目"><span class="toc-number">3.</span> <span class="toc-text">spring Initializer快速创建一个SpringBoot项目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#resources文件夹中目录结构"><span class="toc-number">3.1.</span> <span class="toc-text">resources文件夹中目录结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#static"><span class="toc-number">3.1.1.</span> <span class="toc-text">static</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#templates"><span class="toc-number">3.1.2.</span> <span class="toc-text">templates</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#application-properties"><span class="toc-number">3.1.3.</span> <span class="toc-text">application.properties</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#yaml语法"><span class="toc-number">3.1.4.</span> <span class="toc-text">yaml语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#属性的写法"><span class="toc-number">3.1.4.1.</span> <span class="toc-text">属性的写法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#字面量：普通得值-数字，字符串，布尔"><span class="toc-number">3.1.4.1.1.</span> <span class="toc-text">字面量：普通得值(数字，字符串，布尔)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#对象，Map键值对"><span class="toc-number">3.1.4.1.2.</span> <span class="toc-text">对象，Map键值对</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取配置文件值"><span class="toc-number">3.2.</span> <span class="toc-text">获取配置文件值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#properties文件的写法"><span class="toc-number">3.2.1.</span> <span class="toc-text">properties文件的写法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Value"><span class="toc-number">3.2.2.</span> <span class="toc-text">@Value</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ConfigurationProperties和-Value的区别"><span class="toc-number">3.2.3.</span> <span class="toc-text">@ConfigurationProperties和@Value的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#松散绑定"><span class="toc-number">3.2.3.1.</span> <span class="toc-text">松散绑定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SPEL"><span class="toc-number">3.2.3.2.</span> <span class="toc-text">SPEL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JSR303数据校验"><span class="toc-number">3.2.3.3.</span> <span class="toc-text">JSR303数据校验</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Validated校验注解"><span class="toc-number">3.2.3.3.1.</span> <span class="toc-text">@Validated校验注解</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Email-属性值必须满足邮件格式"><span class="toc-number">3.2.3.3.2.</span> <span class="toc-text">@Email 属性值必须满足邮件格式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引入配置文件的注解"><span class="toc-number">3.2.4.</span> <span class="toc-text">引入配置文件的注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置文件占位符"><span class="toc-number">3.2.5.</span> <span class="toc-text">配置文件占位符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Profile"><span class="toc-number">3.2.6.</span> <span class="toc-text">Profile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置文件加载位置-classpath就是resource"><span class="toc-number">3.2.7.</span> <span class="toc-text">配置文件加载位置,classpath就是resource</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#外部配置的加载顺序"><span class="toc-number">3.2.8.</span> <span class="toc-text">外部配置的加载顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自动配置原理"><span class="toc-number">3.2.9.</span> <span class="toc-text">自动配置原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置相关的注解"><span class="toc-number">3.2.10.</span> <span class="toc-text">配置相关的注解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Configuration-proxyBeanMethods-false"><span class="toc-number">3.2.10.1.</span> <span class="toc-text">@Configuration(proxyBeanMethods&#x3D;false)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EnableConfigurationProperties-HttpProperties-class"><span class="toc-number">3.2.10.2.</span> <span class="toc-text">@EnableConfigurationProperties(HttpProperties.class)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ConditionalOnWebApplication-type-ConditionalOnWebApplication-Type-SERVLET"><span class="toc-number">3.2.10.3.</span> <span class="toc-text">@ConditionalOnWebApplication(type&#x3D;ConditionalOnWebApplication.Type.SERVLET)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ConditionalOnClass-CharacterEncodingFilter-class"><span class="toc-number">3.2.10.4.</span> <span class="toc-text">@ConditionalOnClass(CharacterEncodingFilter.class)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ConditionalOnProperty-prefix-”spring-http-encoding”-value-”enabled”-matchIfMissing-true"><span class="toc-number">3.2.10.5.</span> <span class="toc-text">@ConditionalOnProperty(prefix&#x3D;”spring.http.encoding”,value&#x3D;”enabled”,matchIfMissing&#x3D;true)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ConditionalOnMissingBean"><span class="toc-number">3.2.10.6.</span> <span class="toc-text">@ConditionalOnMissingBean</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自动配置是精髓"><span class="toc-number">3.2.11.</span> <span class="toc-text">自动配置是精髓</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Conditional扩展注解"><span class="toc-number">3.2.11.1.</span> <span class="toc-text">@Conditional扩展注解</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#日志"><span class="toc-number">4.</span> <span class="toc-text">日志</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#springboot日志"><span class="toc-number">4.1.</span> <span class="toc-text">springboot日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志的使用方法"><span class="toc-number">4.2.</span> <span class="toc-text">日志的使用方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志文件"><span class="toc-number">4.3.</span> <span class="toc-text">日志文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指定日志配置文件：方法resource目录下"><span class="toc-number">4.4.</span> <span class="toc-text">指定日志配置文件：方法resource目录下</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web开发"><span class="toc-number">5.</span> <span class="toc-text">web开发</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#资源目录"><span class="toc-number">5.1.</span> <span class="toc-text">资源目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#访问路径"><span class="toc-number">5.2.</span> <span class="toc-text">访问路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Webjars"><span class="toc-number">5.3.</span> <span class="toc-text">Webjars</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#favicon-ico"><span class="toc-number">5.4.</span> <span class="toc-text">favicon.ico</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#扩展springmvc"><span class="toc-number">5.5.</span> <span class="toc-text">扩展springmvc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#国际化"><span class="toc-number">5.6.</span> <span class="toc-text">国际化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用功能"><span class="toc-number">6.</span> <span class="toc-text">常用功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#表单重复提交问题"><span class="toc-number">6.1.</span> <span class="toc-text">表单重复提交问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#登录"><span class="toc-number">6.2.</span> <span class="toc-text">登录</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Restful"><span class="toc-number">7.</span> <span class="toc-text">Restful</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RestfulCRUD"><span class="toc-number">7.1.</span> <span class="toc-text">RestfulCRUD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验的请求架构"><span class="toc-number">7.2.</span> <span class="toc-text">实验的请求架构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#错误处理"><span class="toc-number">8.</span> <span class="toc-text">错误处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何定制错误页面"><span class="toc-number">8.1.</span> <span class="toc-text">如何定制错误页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#页面能获取的信息-可以直接在页面通过行内表达式获得对应的值"><span class="toc-number">8.2.</span> <span class="toc-text">页面能获取的信息(可以直接在页面通过行内表达式获得对应的值)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定制错误数据"><span class="toc-number">8.3.</span> <span class="toc-text">定制错误数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义一个异常类"><span class="toc-number">8.3.1.</span> <span class="toc-text">自定义一个异常类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#转发到-error进行自适应响应效果处理"><span class="toc-number">8.3.2.</span> <span class="toc-text">转发到&#x2F;error进行自适应响应效果处理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#springboot内置的tomcat"><span class="toc-number">9.</span> <span class="toc-text">springboot内置的tomcat</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何更改内嵌的tomcat的参数"><span class="toc-number">9.1.</span> <span class="toc-text">如何更改内嵌的tomcat的参数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何修改SpringBoot的默认配置"><span class="toc-number">10.</span> <span class="toc-text">如何修改SpringBoot的默认配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#springboot注册web三大组件"><span class="toc-number">11.</span> <span class="toc-text">springboot注册web三大组件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Servlet"><span class="toc-number">11.1.</span> <span class="toc-text">Servlet</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#切换方法服务器软件的方法"><span class="toc-number">11.1.1.</span> <span class="toc-text">切换方法服务器软件的方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Filter"><span class="toc-number">11.2.</span> <span class="toc-text">Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lister"><span class="toc-number">11.3.</span> <span class="toc-text">Lister</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Springboot操作数据库"><span class="toc-number">12.</span> <span class="toc-text">Springboot操作数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JDBC"><span class="toc-number">12.1.</span> <span class="toc-text">JDBC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#druid数据库连接池的用法"><span class="toc-number">12.2.</span> <span class="toc-text">druid数据库连接池的用法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Springboot启动配置原则"><span class="toc-number">13.</span> <span class="toc-text">Springboot启动配置原则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建springApplication对象"><span class="toc-number">13.1.</span> <span class="toc-text">创建springApplication对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义starts启动器依赖"><span class="toc-number">13.2.</span> <span class="toc-text">自定义starts启动器依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定配置的细节"><span class="toc-number">13.3.</span> <span class="toc-text">自定配置的细节</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#属性配置类"><span class="toc-number">13.4.</span> <span class="toc-text">属性配置类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#注解版的springboot整合mybatis"><span class="toc-number">14.</span> <span class="toc-text">注解版的springboot整合mybatis</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#导入mysql依赖"><span class="toc-number">14.1.</span> <span class="toc-text">导入mysql依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置连接数据库的属性"><span class="toc-number">14.2.</span> <span class="toc-text">配置连接数据库的属性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring缓存"><span class="toc-number">15.</span> <span class="toc-text">Spring缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#EnableCaching"><span class="toc-number">15.1.</span> <span class="toc-text">@EnableCaching</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cacheable"><span class="toc-number">15.2.</span> <span class="toc-text">@Cacheable</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">15.2.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行流程"><span class="toc-number">15.2.2.</span> <span class="toc-text">运行流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SimpleKeyGenerator生成key的默认策略"><span class="toc-number">15.2.3.</span> <span class="toc-text">SimpleKeyGenerator生成key的默认策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">15.2.4.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CacheEvict清空缓存"><span class="toc-number">15.3.</span> <span class="toc-text">@CacheEvict清空缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CachePut"><span class="toc-number">15.4.</span> <span class="toc-text">@CachePut</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#springboot默认支持两种技术来和ES交互"><span class="toc-number">16.</span> <span class="toc-text">springboot默认支持两种技术来和ES交互</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Jest-默认不生效"><span class="toc-number">16.1.</span> <span class="toc-text">Jest(默认不生效)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringData-ElasticSearch"><span class="toc-number">16.2.</span> <span class="toc-text">SpringData ElasticSearch</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SpringData-ElasticSearch的使用"><span class="toc-number">16.2.1.</span> <span class="toc-text">SpringData ElasticSearch的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义方法"><span class="toc-number">16.2.1.1.</span> <span class="toc-text">自定义方法</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(/img/springboot.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">定不辱使命</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">Spring Boot学习笔记</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-06-04 13:36:22"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-06-04</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-17 18:26:13"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-06-17</span></time></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div id="article-container"><h1 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h1><h2 id="springboot的优点"><a href="#springboot的优点" class="headerlink" title="springboot的优点"></a>springboot的优点</h2><ol>
+<li><p>快速创建独立运行的spring项目以及与主流框架集成</p>
+</li>
+<li><p>使用嵌入式的Servlet容器，应用无需打成WAR包</p>
+</li>
+<li><p>starters自动依赖与版本控制</p>
+</li>
+<li><p>大量的自动配置，简化开发，也可以修改默认值</p>
+</li>
+<li><p>无需配置XML,无代码生成都是API,开箱即用</p>
+</li>
+<li><p>准生产环境的运行时应用监控</p>
+</li>
+<li><p>与云计算的天然集成</p>
+<p>简化Spring应用开发的一个框架；整个Spring技术栈的一个大整合；J2EE开发的一站式解决方案</p>
+</li>
+</ol>
+<h2 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h2><p>服务微化的架构风格</p>
+<p>一个应用应该是一组小型服务；可以通过HTTP的方式进行互通</p>
+<p>每一个功能元素最终都是一个可独立可升级的独立单元</p>
+<h2 id="SpringBoot简化打包发布方法"><a href="#SpringBoot简化打包发布方法" class="headerlink" title="SpringBoot简化打包发布方法"></a>SpringBoot简化打包发布方法</h2><p>tomcat服务器是内置的，没有也可以打包发布</p>
+<p>1.打包插件pom依赖</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image001.png"  alt="springboot"></p>
+<p>2.通过maven的package,将程序打包成jar包</p>
+<p>3.执行java -jar spring-boot-o1-helloworld-1.0-SNAPSHOT.jar，进行发布</p>
+<h2 id="SpringBoot启动器"><a href="#SpringBoot启动器" class="headerlink" title="SpringBoot启动器"></a>SpringBoot启动器</h2><p>Spring Boot将所有的功能场景都抽取出来，做成一个个starters启动器，只需要在项目里面引入这些starter相关场景的所有依赖都会被导入进来，需要什么功能就导入什么场景的启动器</p>
+<h3 id="spring-boot-starter-parent"><a href="#spring-boot-starter-parent" class="headerlink" title="spring-boot-starter-parent"></a>spring-boot-starter-parent</h3><p>spring-boot-starter-parent的依赖是spring-boot-dependencies，后者定义了相关jar包的版本号，避免版本冲突</p>
+<p>前者是真正管理SpringBoot应用里面的所有依赖版本，我们后期自己导入的依赖大部分都不需要写版本号，合理的版本号都已经有内置好了</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image002.png"  alt="springboot"></p>
+<h3 id="spring-boot-starter-web"><a href="#spring-boot-starter-web" class="headerlink" title="spring-boot-starter-web"></a>spring-boot-starter-web</h3><p>导入web模块正常运行所依赖的组件</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image003.png"  alt="springboot"></p>
+<h1 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h1><h2 id="SpringBootApplication"><a href="#SpringBootApplication" class="headerlink" title="@SpringBootApplication"></a>@SpringBootApplication</h2><p>@SpringBootApplication标注在某个类上说明这个类是SpringBoot的主配置类，SpringBoot就应该运行这个类的main方法来启动SpringBoot应用</p>
+<p>@SpringBootApplication注解接口上的注解</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image004.png"  alt="springboot"></p>
+<h2 id="SpringBootConfiguration"><a href="#SpringBootConfiguration" class="headerlink" title="@SpringBootConfiguration"></a>@SpringBootConfiguration</h2><p>SpringBoot的配置类，标注在某个类上，表示这是一个SpringBoot的配置类</p>
+<h3 id="Configuration"><a href="#Configuration" class="headerlink" title="@Configuration"></a>@Configuration</h3><p>配置类上用这个标注注解，标识当前类是一个配置类</p>
+<h2 id="EnableAutoConfiguration"><a href="#EnableAutoConfiguration" class="headerlink" title="@EnableAutoConfiguration"></a>@EnableAutoConfiguration</h2><p>开启自动配置功能</p>
+<h3 id="AutoConfigurationPackage"><a href="#AutoConfigurationPackage" class="headerlink" title="@AutoConfigurationPackage"></a>@AutoConfigurationPackage</h3><p>自动配置包</p>
+<h3 id="Import-AutoConfigurationPackages-Registrar-class"><a href="#Import-AutoConfigurationPackages-Registrar-class" class="headerlink" title="@Import(AutoConfigurationPackages.Registrar.class)"></a>@Import(AutoConfigurationPackages.Registrar.class)</h3><p>spring底层注解@Import，给容器中导入一个组件；导入的组件AutoConfigurationPackages.Registrar.class</p>
+<p>将主配置类(@SpringBootConfiguration标注的类)所以在包里面的所有组件扫描到spring容器</p>
+<h3 id="Import-EnableAutoConfigurationImportSelector-class"><a href="#Import-EnableAutoConfigurationImportSelector-class" class="headerlink" title="@Import(EnableAutoConfigurationImportSelector.class)"></a>@Import(EnableAutoConfigurationImportSelector.class)</h3><p>将所需要的组件以全类名的方式返回，并注入容器；会给容器中导入非常多自动配置类(当前场景需要的配置类)，并且已经配置好了。免去我们自己手动编写配置注入功能组件的工作</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image005.png"  alt="springboot"></p>
+<h3 id="自动导入配置类的方法"><a href="#自动导入配置类的方法" class="headerlink" title="自动导入配置类的方法"></a>自动导入配置类的方法</h3><p>getCandidateConfigurations-&gt;loadFactoryNames(EnableAutoConfiguration.class,ClassLoader)</p>
+<p>loadFactoryNames从类路径下的META-INF/spring.factories中获取EnableAutoConfiguration指定的值，将这些值作为自动配置类导入到容器中</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image006.png"  alt="springboot"></p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image007.png"  alt="springboot"></p>
+<p>上图中的配置类中的bean是可以直接@Autowired自动注入使用的，springboot自动注入的组件范围很大，包括了大多数场景(导入了starters依赖才能用)</p>
+<h1 id="spring-Initializer快速创建一个SpringBoot项目"><a href="#spring-Initializer快速创建一个SpringBoot项目" class="headerlink" title="spring Initializer快速创建一个SpringBoot项目"></a>spring Initializer快速创建一个SpringBoot项目</h1><p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image008.png"  alt="springboot"></p>
+<h2 id="resources文件夹中目录结构"><a href="#resources文件夹中目录结构" class="headerlink" title="resources文件夹中目录结构"></a>resources文件夹中目录结构</h2><h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><p>保存所有的静态资源，js css images</p>
+<h3 id="templates"><a href="#templates" class="headerlink" title="templates"></a>templates</h3><p>保存所有的模板页面，默认不支持jsp</p>
+<h3 id="application-properties"><a href="#application-properties" class="headerlink" title="application.properties"></a>application.properties</h3><p>springboot应用的配置文件，可以修改一些默认配置 </p>
+<p>Springboot配置文件:修改springboot自动配置的默认值</p>
+<h3 id="yaml语法"><a href="#yaml语法" class="headerlink" title="yaml语法"></a>yaml语法</h3><p>K: V表示一对键值对(空格必须有)</p>
+<p>以空格的缩进来控制层级关机；只要是左对齐的一系列数据都是同一个层级的</p>
+<p>属性和值是大小写敏感的</p>
+<p>Last-name和lastName是等价的</p>
+<h4 id="属性的写法"><a href="#属性的写法" class="headerlink" title="属性的写法"></a>属性的写法</h4><h5 id="字面量：普通得值-数字，字符串，布尔"><a href="#字面量：普通得值-数字，字符串，布尔" class="headerlink" title="字面量：普通得值(数字，字符串，布尔)"></a>字面量：普通得值(数字，字符串，布尔)</h5><p>字符串默认不用加上单双引号</p>
+<p>“”：双引号不会转义字符串里面得特殊字符</p>
+<p>Name: “zhangsan\n lisi” 输出：zhangsan 换行 lisi</p>
+<p>‘’：单引号会转义字符串里面得特殊字符</p>
+<p>Name: ‘zhangsan\n lisi’ 输出：zhangsan\n lisi</p>
+<h5 id="对象，Map键值对"><a href="#对象，Map键值对" class="headerlink" title="对象，Map键值对"></a>对象，Map键值对</h5><p>缩进写法：</p>
+<p>Friends:</p>
+<p>  lastname: zhangsan</p>
+<p>  age: 20</p>
+<p>行内写法：Friends: {lastname: zhangsan,age: 20}</p>
+<p>数组(List,Set):用- 值表示数组中得一个元素</p>
+<p>缩进写法：行内写法无效</p>
+<p>Pets:</p>
+<p>-cat</p>
+<p>-dog</p>
+<p>-pig</p>
+<h2 id="获取配置文件值"><a href="#获取配置文件值" class="headerlink" title="获取配置文件值"></a>获取配置文件值</h2><p>@ConfigurationProperties：告诉springboot将本类中的所有属性和配置文件中的相关的配置进行绑定</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image009.png"  alt="springboot"></p>
+<p>导入配置文件处理器依赖,作用是导入时有提示</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image010.png"  alt="springboot"></p>
+<p>配置yml文件</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image011.png"  alt="springboot"></p>
+<h3 id="properties文件的写法"><a href="#properties文件的写法" class="headerlink" title="properties文件的写法"></a>properties文件的写法</h3><p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image012.png"  alt="springboot"></p>
+<p>注意：properties，yml文件都可以作为配置文件，但是同时存在时前者的优先级大于后者，会将yml文件中的重复内容覆盖</p>
+<p>调用Person，可以获取到配置文件中的值</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image013.png"  alt="springboot"></p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image014.png"  alt="springboot"></p>
+<h3 id="Value"><a href="#Value" class="headerlink" title="@Value"></a>@Value</h3><p>spring注解，也可以从配置文件中取值</p>
+<p>不能和@ConfigurationProperties同时使用，否则优先使用@ConfigurationProperties</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image015.png"  alt="springboot"></p>
+<h3 id="ConfigurationProperties和-Value的区别"><a href="#ConfigurationProperties和-Value的区别" class="headerlink" title="@ConfigurationProperties和@Value的区别"></a>@ConfigurationProperties和@Value的区别</h3><p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image016.png"  alt="springboot"></p>
+<h4 id="松散绑定"><a href="#松散绑定" class="headerlink" title="松散绑定"></a>松散绑定</h4><p>person.firstName=person.first-name=person.first_name</p>
+<h4 id="SPEL"><a href="#SPEL" class="headerlink" title="SPEL"></a>SPEL</h4><p>spring 表达式，#{表达式}</p>
+<h4 id="JSR303数据校验"><a href="#JSR303数据校验" class="headerlink" title="JSR303数据校验"></a>JSR303数据校验</h4><h5 id="Validated校验注解"><a href="#Validated校验注解" class="headerlink" title="@Validated校验注解"></a>@Validated校验注解</h5><h5 id="Email-属性值必须满足邮件格式"><a href="#Email-属性值必须满足邮件格式" class="headerlink" title="@Email 属性值必须满足邮件格式"></a>@Email 属性值必须满足邮件格式</h5><p>如果获取的name值不是邮箱格式，则会报错，这里的异常如何捕获处理呐？</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image017.png"  alt="springboot"></p>
+<h3 id="引入配置文件的注解"><a href="#引入配置文件的注解" class="headerlink" title="引入配置文件的注解"></a>引入配置文件的注解</h3><p>@PropertySource&amp;@ImportResource</p>
+<p>@ConfigurationProperties默认从全局配置文件中取值</p>
+<p>@PropertySource加载指定的配置文件，未实现</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image018.png"  alt="springboot"></p>
+<p> @ImportResource导入spring的配置文件 ，注入Bean</p>
+<p>配置bean.xml文件</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image019.png"  alt="springboot"></p>
+<p>启动类加载指定配置文件bean.xml</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image020.png"  alt="springboot"></p>
+<p>测试类打印查看</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image021.png"  alt="springboot"></p>
+<h3 id="配置文件占位符"><a href="#配置文件占位符" class="headerlink" title="配置文件占位符"></a>配置文件占位符</h3><p>只能用在properties文件中，不能用在yml文件中</p>
+<p>1.随机数 </p>
+<p>Random.value</p>
+<p>Random.int</p>
+<p>Random.ling</p>
+<p>Random.int(10)</p>
+<p>Random.int[1024,65536]</p>
+<p>2.占位符获取之前配置的值，如果没有可以指定默认值</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image022.png"  alt="springboot"></p>
+<h3 id="Profile"><a href="#Profile" class="headerlink" title="Profile"></a>Profile</h3><p>1.多profile文件</p>
+<p>properties</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image023.png"  alt="springboot"></p>
+<p>在applicaton.properties中设置激活文件</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image024.png"  alt="springboot"></p>
+<p>2.yml</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image025.png"  alt="springboot"></p>
+<p>注意</p>
+<p>1.yml,properties文件不要同时定义，两者之间有冲突</p>
+<p>2.主文件中与激活文件中不冲突的部分依然有效</p>
+<p>3.yml支持多文档块方式</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image026.png"  alt="springboot"></p>
+<p>4.激活指定的profile</p>
+<p>–spring.profile.active=dev </p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image027.png"  alt="springboot"></p>
+<p> 打包后启动时指定激活文件</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image028.png"  alt="springboot"></p>
+<p>虚拟机参数指定激活文件</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image029.png"  alt="springboot"></p>
+<h3 id="配置文件加载位置-classpath就是resource"><a href="#配置文件加载位置-classpath就是resource" class="headerlink" title="配置文件加载位置,classpath就是resource"></a>配置文件加载位置,classpath就是resource</h3><p> -<a href="file://./config/">file:./config/</a></p>
+<p>-<a href="file://./">file:./</a></p>
+<p>-classpath:/config/</p>
+<p>-classpath:/</p>
+<p>以上时按照优先级从高到低，所有位置的文件都会被加载，高优先级配置内容会覆盖低优先级配置内容，互补配置</p>
+<p>还可以通过spring.congfig.location=绝对路径，设置配置文件;在项目打包好后，以命令行参数的形式进行设置才有效,运维时非常有用</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image030.png"  alt="springboot"></p>
+<p>配置项目的访问路径，访问目标资源必须在mvc路径的基础上加上context-path</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image031.png"  alt="springboot"></p>
+<h3 id="外部配置的加载顺序"><a href="#外部配置的加载顺序" class="headerlink" title="外部配置的加载顺序"></a>外部配置的加载顺序</h3><p> springboot也可以从以下位置加载配置，优先级从高到低,高优先级的配置覆盖低优先级的配置，所有的配置会形成互补</p>
+<p>1.命令行参数,设置服务端口</p>
+<p>java -jar demo-0.0.1-SNAPSHOT.jar –server.port=4000</p>
+<p>2.由jar包外向jar包内进行寻找,启动jar包，程序会自动去寻找jar包外的配置文件application.properties</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image032.png"  alt="springboot"></p>
+<p>优先加载profile-active激活的配置信息,下图的情况是无法通过jar包外文件改变端口号的</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image033.png"  alt="springboot"></p>
+<h3 id="自动配置原理"><a href="#自动配置原理" class="headerlink" title="自动配置原理"></a>自动配置原理</h3><p>1.spring boot启动的时候加载主配置类，开启了自动配置功能</p>
+<p>2.@EnableAutoConfiguration的作用，向容器中导入大量组件,每一个xxxAutoConfiguration 类都是容器中的一个组件，用他们来做自动配置</p>
+<p>3.每一个自动给配置类进行自动配置功能,以HttpEncodingAutoConfiguration为例解释自动配置原理</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image034.png"  alt="springboot"></p>
+<h3 id="配置相关的注解"><a href="#配置相关的注解" class="headerlink" title="配置相关的注解"></a>配置相关的注解</h3><h4 id="Configuration-proxyBeanMethods-false"><a href="#Configuration-proxyBeanMethods-false" class="headerlink" title="@Configuration(proxyBeanMethods=false)"></a>@Configuration(proxyBeanMethods=false)</h4><p>表示这是一个配置类，可以给容器中添加组件</p>
+<h4 id="EnableConfigurationProperties-HttpProperties-class"><a href="#EnableConfigurationProperties-HttpProperties-class" class="headerlink" title="@EnableConfigurationProperties(HttpProperties.class)"></a>@EnableConfigurationProperties(HttpProperties.class)</h4><p>指定启动类的ConfigurationProperties功能,从配置文件中获取指定的值和bean的属性进行绑定</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image035.png"  alt="springboot"></p>
+<p>所有配置文件中能配置的属性都是在xxxProperties类中封装着；配置文件能配置什么就可以参照某个功能对应的属性类</p>
+<h4 id="ConditionalOnWebApplication-type-ConditionalOnWebApplication-Type-SERVLET"><a href="#ConditionalOnWebApplication-type-ConditionalOnWebApplication-Type-SERVLET" class="headerlink" title="@ConditionalOnWebApplication(type=ConditionalOnWebApplication.Type.SERVLET)"></a>@ConditionalOnWebApplication(type=ConditionalOnWebApplication.Type.SERVLET)</h4><p>spring底层的@Conditional注解,根据不同的条件，如果满足指定的条件，整个配置类才会生效,判断当前应用是否是web应用，如果是，当前配置类生效</p>
+<h4 id="ConditionalOnClass-CharacterEncodingFilter-class"><a href="#ConditionalOnClass-CharacterEncodingFilter-class" class="headerlink" title="@ConditionalOnClass(CharacterEncodingFilter.class)"></a>@ConditionalOnClass(CharacterEncodingFilter.class)</h4><p>判断当前项目有没有CharacterEncodingFilter这个类(springmvc中解决乱码的过滤器)</p>
+<h4 id="ConditionalOnProperty-prefix-”spring-http-encoding”-value-”enabled”-matchIfMissing-true"><a href="#ConditionalOnProperty-prefix-”spring-http-encoding”-value-”enabled”-matchIfMissing-true" class="headerlink" title="@ConditionalOnProperty(prefix=”spring.http.encoding”,value=”enabled”,matchIfMissing=true)"></a>@ConditionalOnProperty(prefix=”spring.http.encoding”,value=”enabled”,matchIfMissing=true)</h4><p>判断配置文件中是否存在配置spring.http.encoding,matchIfMissing=true，如果不存在，判断也是成立的，默认生效的</p>
+<p>HttpProperties.Encodingproperties是配置文件的属性，如果在application.properties中配置该属性，就会将原jar包中的配置属性覆盖掉，实现自定义jar包外的配置文件优先级于jar内配置文件的优先级</p>
+<p>根据以上注解判断决定这个配置类是否生效，一旦配置类生效，这个配置类就会给容器中添加各种组件 ，这些类里面的每一个属性又是和配置文件绑定的，生效后会往容器中注入两个bean</p>
+<h4 id="ConditionalOnMissingBean"><a href="#ConditionalOnMissingBean" class="headerlink" title="@ConditionalOnMissingBean"></a>@ConditionalOnMissingBean</h4><p>容器中没有该注解就配置一个</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image036.png"  alt="springboot"></p>
+<h3 id="自动配置是精髓"><a href="#自动配置是精髓" class="headerlink" title="自动配置是精髓"></a>自动配置是精髓</h3><p>1.springboot启动会加载大量的自动配置类</p>
+<p>2.查看需要的功能springboot默认写好的配置类中是否存在</p>
+<p>3.如果存在就可以直接使用，属性不满意可以自己在主配置文件中设置</p>
+<p>xxxAutoConfiguration:自动配置类，执行注解，给容器中添加组件</p>
+<p>xxxProperties:封装配置文件中相关属性</p>
+<h4 id="Conditional扩展注解"><a href="#Conditional扩展注解" class="headerlink" title="@Conditional扩展注解"></a>@Conditional扩展注解</h4><p> 作用：必须是@Conditional指定的条件成立，才给容器添加组件，配置类里面的内容才生效</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image037.png"  alt="springboot"></p>
+<p>自动配置类大都需要许多判断才能生效，不满足的是不生效的</p>
+<p>可以通过启动debug=true属性，让控制台自动打印配置报告，看到那些是生效了的组件</p>
+<h1 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h1><p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image038.png"  alt="springboot"></p>
+<p> springboot的框架选择：左边选一个门面(抽象层)slf4j，右边选一个logback来实现</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image039.png"  alt="springboot"></p>
+<h2 id="springboot日志"><a href="#springboot日志" class="headerlink" title="springboot日志"></a>springboot日志</h2><p>1.springboot底层也是使用slf4j+logback的方式进行日志记录</p>
+<p>2.springboot通过中间替换包，将其他日志联通抽象层日志slf4j</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image040.png"  alt="springboot"></p>
+<p>3.如果要使用其他抽象层日志，就不能使用中间替换包，需要将中将包排除掉，否则还是使用的slf4j</p>
+<h2 id="日志的使用方法"><a href="#日志的使用方法" class="headerlink" title="日志的使用方法"></a>日志的使用方法</h2><p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image041.png"  alt="springboot"></p>
+<p>输出结果</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image042.png"  alt="springboot"></p>
+<p>可以在配置文件中设定日志级别，日志扫描包范围 ，指定位置生成</p>
+<h2 id="日志文件"><a href="#日志文件" class="headerlink" title="日志文件"></a>日志文件</h2><p>Logging.file.path设置日志文件存储路径，文件在设定目录，但是文件名固定为spring.log</p>
+<p>Logging.file设置文件名，文件在项目根目录</p>
+<p>以上两个属性是冲突的，不能同时使用</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image043.png"  alt="springboot"></p>
+<p>在控制台输出的日志的格式，指定文件中日志输出的格式</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image044.png"  alt="springboot"></p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image045.png"  alt="springboot"></p>
+<h2 id="指定日志配置文件：方法resource目录下"><a href="#指定日志配置文件：方法resource目录下" class="headerlink" title="指定日志配置文件：方法resource目录下"></a>指定日志配置文件：方法resource目录下</h2><p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image046.png"  alt="springboot"></p>
+<p>Logback.xml:直接就被日志框架识别了，没有springboot的相关高级特性</p>
+<p>Logback-spring.xml:日志框架不直接加载日志的配置项，由springboot解析日志配置，可以使用spring boot高级的profile功能</p>
+<p>例如下图中激活文件不同，日志的输出格式是不同的</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image047.png"  alt="springboot"></p>
+<h1 id="web开发"><a href="#web开发" class="headerlink" title="web开发"></a>web开发</h1><p>springboot对mvc的相关自动配置都在WebMvcAutoConfiguration中</p>
+<p>springboot对静态资源的映射规则</p>
+<h2 id="资源目录"><a href="#资源目录" class="headerlink" title="资源目录"></a>资源目录</h2><p>ResourceProperties类规定以下路径的数据都会被springboot识别到，静态资源可以放在这些目录下面</p>
+<p>“classpath:/META-INF/resources/“</p>
+<p>“classpath:/resources/“</p>
+<p>“classpath:/static/“</p>
+<p>“classpath:/public/“</p>
+<p>注意：classpath类路径就是resources资源目录(java,resources都是类路径，只是一般静态资源不放在java路径下)</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image048.png"  alt="springboot"></p>
+<p>可以在配置文件中设置static-locations的值来自定义静态资源路径，不过会覆盖掉springboot默认的路径</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image049.png"  alt="springboot"></p>
+<p>游览器路径查找静态资源时可以直接不写类路径以及默认的存放位置的路径，例如</p>
+<p><a href="http://localhost:8000/test/asserts/js/bootstrap.min.js" target="_blank" rel="noopener">http://localhost:8000/test/asserts/js/bootstrap.min.js</a></p>
+<p>可以直接通过该路径，访问static下的静态资源/resources/static可以不用写</p>
+<p>注意虚拟的项目路径还是必须要加上的</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image050.png"  alt="springboot"></p>
+<h2 id="访问路径"><a href="#访问路径" class="headerlink" title="访问路径"></a>访问路径</h2><p>欢迎页路径为/**,映射静态资源文件下的所有index.html</p>
+<p>即localhost:8080/路径会去找1中所述的静态资源目录下寻找index.html页面</p>
+<h2 id="Webjars"><a href="#Webjars" class="headerlink" title="Webjars"></a>Webjars</h2><p>所有/webjars/**,都去classpath:/META-INF/resources/webjars找资源</p>
+<p>Webjars:以jar包的方式引入静态资源</p>
+<p>导入jquery依赖</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image051.png"  alt="springboot"></p>
+<p>maven会自动导入jquery的jar包，使用时到classpath:/META-INF/resources/webjars找资源</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image052.png"  alt="springboot"></p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image053.png"  alt="springboot"></p>
+<h2 id="favicon-ico"><a href="#favicon-ico" class="headerlink" title="favicon.ico"></a>favicon.ico</h2><p>所有的**/favicon.ico都是在静态资源文件下找</p>
+<h2 id="扩展springmvc"><a href="#扩展springmvc" class="headerlink" title="扩展springmvc"></a>扩展springmvc</h2><p>使用WebMvcConfigureAdapter可以来扩展Springmvc的功能(代替springmvc.xml中的配置)</p>
+<p>简单转发的controller可以直接写在自定义视图解析器里面，优化代码</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image054.png"  alt="springboot"></p>
+<p>{“userHead”:”<a href="http://images.nowcoder.com/head/136t.png&quot;,&quot;questionId&quot;:&quot;1&quot;,&quot;questionTitle&quot;:&quot;疫情何时能够结束&quot;,&quot;userName&quot;:&quot;d1c4e5dccb&quot;,&quot;userId&quot;:&quot;5&quot;}" target="_blank" rel="noopener">http://images.nowcoder.com/head/136t.png&quot;,&quot;questionId&quot;:&quot;1&quot;,&quot;questionTitle&quot;:&quot;疫情何时能够结束&quot;,&quot;userName&quot;:&quot;d1c4e5dccb&quot;,&quot;userId&quot;:&quot;5&quot;}</a></p>
+<h2 id="国际化"><a href="#国际化" class="headerlink" title="国际化"></a>国际化</h2><p>创建国际化文件，并在不同文件中配置对应的语言</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image055.png"  alt="springboot"></p>
+<p>MessageSourceAutoConfiguration自动配置好了国际化配置</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image056.png"  alt="springboot"></p>
+<p>通过#{}在页面上添加国际化信息</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image057.png"  alt="springboot"></p>
+<p>1.springboot会根据游览器语言自动选择切换</p>
+<p>2.点击选择中英文</p>
+<p>themeleaf的a标签传参方式是用(),提供参数给自定义的区域解析器分析</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image058.png"  alt="springboot"></p>
+<p>通过实现了LocaleResolver接口的自定义区域解析类</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image059.png"  alt="springboot"></p>
+<p>将自定义的区域解析类对象注入容器(在配置类中利用@Bean)</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image060.png"  alt="springboot"></p>
+<h1 id="常用功能"><a href="#常用功能" class="headerlink" title="常用功能"></a>常用功能</h1><h2 id="表单重复提交问题"><a href="#表单重复提交问题" class="headerlink" title="表单重复提交问题"></a>表单重复提交问题</h2><p>重定向可以解决页面刷新是的表单重复提交的问题(表单重复提交的原因是服务器将表单请求转发到了另外一个页面)</p>
+<p>注意区分请求路径和页面路径的区别，重定向后面跟的是请求路径而不是资源路径，想要通过重定向的请求跳转到对应页面，需要在写一个方法映射</p>
+<p>转发foward后面跟的不是访问路径而是资源路径</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image061.png"  alt="springboot"></p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image062.png"  alt="springboot"></p>
+<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p>如果账号密码错误，后台返回错误数据，那么页面显示出来，#strings是themeleaf的内置对象</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image063.png"  alt="springboot"></p>
+<p>直接返回页面是指向资源页面，重定向是有客户端重新发送一个请求</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image064.png"  alt="springboot"></p>
+<p>问题：如何避免后续页面在不登陆的情况下，直接被访问</p>
+<p>解决办法：拦截器登录检查</p>
+<p>配置拦截器类</p>
+<p>登录的controller中设置session的属性，可以设置session存留的时间</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image065.png"  alt="springboot"></p>
+<p>如果session中可以获取到controller中设置的值，就说明已经登录过了，没有则跳转到登录页面</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image066.png"  alt="springboot"></p>
+<p>将自定义的拦截器注入容器</p>
+<p>/**拦截所有请求</p>
+<p>excludepathpatterns放行的请求</p>
+<p>静态资源springboot已经做好映射了，这里的拦截器不会拦截到静态资源</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image067.png"  alt="springboot"></p>
+<p>最终效果就是登录才能访问主页面，没登陆就会跳转到登录页面，session过期也会跳转到登录页面</p>
+<h1 id="Restful"><a href="#Restful" class="headerlink" title="Restful"></a>Restful</h1><h2 id="RestfulCRUD"><a href="#RestfulCRUD" class="headerlink" title="RestfulCRUD"></a>RestfulCRUD</h2><p>URI： /资源名称/资源标识 HTTP请求方式区分对资源CRUD操作</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>普通CRUD（URI来区分操作）</strong></th>
+<th><strong>RESTFULCRUD</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查询</td>
+<td>getEmp</td>
+<td>emp—GET</td>
+</tr>
+<tr>
+<td>添加</td>
+<td>addEmp?xxx</td>
+<td>emp—POST</td>
+</tr>
+<tr>
+<td>修改</td>
+<td>updateEmp?id=xxx&amp;xxx=xx</td>
+<td>emp/{id}—PUT</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>deleteEmp?id=1</td>
+<td>emp/{id}—DELETE</td>
+</tr>
+</tbody></table>
+<h2 id="实验的请求架构"><a href="#实验的请求架构" class="headerlink" title="实验的请求架构"></a>实验的请求架构</h2><table>
+<thead>
+<tr>
+<th><strong>实验功能</strong></th>
+<th><strong>请求URI</strong></th>
+<th><strong>请求方式</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查询所有员工</td>
+<td>emps</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>查询某个员工(来到修改页面)</td>
+<td>emp/1</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>来到添加页面</td>
+<td>emp</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>添加员工</td>
+<td>emp</td>
+<td>POST</td>
+</tr>
+<tr>
+<td>来到修改页面（查出员工进行信息回显）</td>
+<td>emp/1</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>修改员工</td>
+<td>emp</td>
+<td>PUT</td>
+</tr>
+<tr>
+<td>删除员工</td>
+<td>emp/1</td>
+<td>DELETE</td>
+</tr>
+</tbody></table>
+<h1 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h1><h2 id="如何定制错误页面"><a href="#如何定制错误页面" class="headerlink" title="如何定制错误页面"></a>如何定制错误页面</h2><p>1.在templates下建一个error文件夹存放错误页面的模板引擎</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image068.png"  alt="springboot"></p>
+<p>2.项目出错后系统会自动跳转到错误状态码对应的错误页面</p>
+<p>3.可以通过4xx代表所有4开头的错误代码</p>
+<h2 id="页面能获取的信息-可以直接在页面通过行内表达式获得对应的值"><a href="#页面能获取的信息-可以直接在页面通过行内表达式获得对应的值" class="headerlink" title="页面能获取的信息(可以直接在页面通过行内表达式获得对应的值)"></a>页面能获取的信息(可以直接在页面通过行内表达式获得对应的值)</h2><p>Timestamp:时间戳</p>
+<p>Status:状态码</p>
+<p>Error;错误提示</p>
+<p>Exception:异常对象</p>
+<p> message:异常消息</p>
+<p>Errors:JSR303数据校验的错误都在这里</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image069.png"  alt="springboot"></p>
+<p>输出结果</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image070.png"  alt="springboot"></p>
+<h2 id="定制错误数据"><a href="#定制错误数据" class="headerlink" title="定制错误数据"></a>定制错误数据</h2><h3 id="自定义一个异常类"><a href="#自定义一个异常类" class="headerlink" title="自定义一个异常类"></a>自定义一个异常类</h3><p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image071.png"  alt="springboot"></p>
+<p>异常处理controller要用注解@ControllerAdvice</p>
+<p>@ResponseBody可以返回json格式数据</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image072.png"  alt="springboot"></p>
+<p>抛出一个自定义的异常</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image073.png"  alt="springboot"></p>
+<h3 id="转发到-error进行自适应响应效果处理"><a href="#转发到-error进行自适应响应效果处理" class="headerlink" title="转发到/error进行自适应响应效果处理"></a>转发到/error进行自适应响应效果处理</h3><p>必须设置状态码</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image074.png"  alt="springboot"></p>
+<p>将controller的数据作为错误数据输出</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image075.png"  alt="springboot"></p>
+<h1 id="springboot内置的tomcat"><a href="#springboot内置的tomcat" class="headerlink" title="springboot内置的tomcat"></a>springboot内置的tomcat</h1><p>SpringBoot默认使用Tomcat作为嵌入式的Servlet容器,tomcat集成在spring-boot-starter-web启动依赖里面</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image076.png"  alt="springboot"></p>
+<h2 id="如何更改内嵌的tomcat的参数"><a href="#如何更改内嵌的tomcat的参数" class="headerlink" title="如何更改内嵌的tomcat的参数"></a>如何更改内嵌的tomcat的参数</h2><p>方法一：操作application.yml</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image077.png"  alt="springboot"></p>
+<p>方法二：往容器中注入一个设置参数的WebServerFactoryCustomizer类</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image078.png"  alt="springboot"></p>
+<p>两种方法底层是一样的，方法一底层就是方法二</p>
+<h1 id="如何修改SpringBoot的默认配置"><a href="#如何修改SpringBoot的默认配置" class="headerlink" title="如何修改SpringBoot的默认配置"></a>如何修改SpringBoot的默认配置</h1><p>SpringBoot在自动配置很多组件的时候，先看容器中有没有用户自己配置的（@Bean、@Component）如果有就用用户配置的，如果没有，才自动配置；如果有些组件可以有多个（ViewResolver）将用户配置的和自己默认的组合起来；</p>
+<p>在SpringBoot中会有非常多的xxxConfigurer帮助我们进行扩展配置</p>
+<p>在SpringBoot中会有很多的xxxCustomizer帮助我们进行定制配置</p>
+<h1 id="springboot注册web三大组件"><a href="#springboot注册web三大组件" class="headerlink" title="springboot注册web三大组件"></a>springboot注册web三大组件</h1><h2 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h2><p> 由于springboot默认是以jar包的方式启动嵌入式的servlet容器来启动spring boot的web应用，没有web.xml文件注册三大组件用以下方式</p>
+<p> springmvc的前端控制器DispatcherServlet是springboot自动注册的</p>
+<p>自定义好组件后通过springboot对应的注册类注入到容器中</p>
+<p>ServletRegistrationBean注册servlet</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image079.png"  alt="springboot"></p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image080.png"  alt="springboot"></p>
+<p>Servlet容器</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image085.png"  alt="springboot"></p>
+<p>springboot支持以下三种服务器软件，tomcat是默认使用的</p>
+<p>tomcat</p>
+<p>Jetty：长连接，可用于web聊天</p>
+<p>Undertow： 不支持jsp</p>
+<h3 id="切换方法服务器软件的方法"><a href="#切换方法服务器软件的方法" class="headerlink" title="切换方法服务器软件的方法"></a>切换方法服务器软件的方法</h3><p>排除tomcat的jar包导入 ，导入目标服务器jar包</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image086.png"  alt="springboot"></p>
+<p>Application.yml和WebServerFactoryCustomizer中对服务器的设置会自动生效</p>
+<h2 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h2><p>FilterRegistrationBean注册过滤器</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image081.png"  alt="springboot"></p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image082.png"  alt="springboot"></p>
+<h2 id="Lister"><a href="#Lister" class="headerlink" title="Lister"></a>Lister</h2><p>ServletListenerRegistrationBean注册监听器</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image083.png"  alt="springboot"></p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image084.png"  alt="springboot"></p>
+<h1 id="Springboot操作数据库"><a href="#Springboot操作数据库" class="headerlink" title="Springboot操作数据库"></a>Springboot操作数据库</h1><h2 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h2><p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image087.png"  alt="springboot"></p>
+<p>jdbc使用的是HikariDataSource数据源，druid也是数据源，即数据库连接池</p>
+<p>jdbc的简单使用方法：</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image088.png"  alt="springboot"></p>
+<h2 id="druid数据库连接池的用法"><a href="#druid数据库连接池的用法" class="headerlink" title="druid数据库连接池的用法"></a>druid数据库连接池的用法</h2><p>配置数据库连接池必须要有JDBC</p>
+<p>导入依赖</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image089.png"  alt="springboot"></p>
+<p>数据库配置，配置数据源类型，jdbc默认使用HikariDataSource</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image090.png"  alt="springboot"></p>
+<p>配置Durid的监控</p>
+<p>1.配置一个管理后台的Servlet</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image091.png"  alt="springboot"></p>
+<p>2.配置一个监控的filter</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image092.png"  alt="springboot"></p>
+<h1 id="Springboot启动配置原则"><a href="#Springboot启动配置原则" class="headerlink" title="Springboot启动配置原则"></a>Springboot启动配置原则</h1><h2 id="创建springApplication对象"><a href="#创建springApplication对象" class="headerlink" title="创建springApplication对象"></a>创建springApplication对象</h2><p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image093.png"  alt="springboot"></p>
+<h2 id="自定义starts启动器依赖"><a href="#自定义starts启动器依赖" class="headerlink" title="自定义starts启动器依赖"></a>自定义starts启动器依赖</h2><p>1.定义一个starter的maven工程，一个自动配置的的maven工程</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image094.png"  alt="springboot"></p>
+<p>2.atguigu-spring-boot-starter中导入自定配置maven工程</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image095.png"  alt="springboot"></p>
+<h2 id="自定配置的细节"><a href="#自定配置的细节" class="headerlink" title="自定配置的细节"></a>自定配置的细节</h2><p>Spring-boot-starter是必须导入的依赖，其他根据情况导入</p>
+<p>注意配置处理器这个依赖必须导入，目的是使得在application.yum文件中可以写入自定义参数</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image096.png"  alt="springboot"></p>
+<h2 id="属性配置类"><a href="#属性配置类" class="headerlink" title="属性配置类"></a>属性配置类</h2><p>会从application中读取参数</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image097.png"  alt="springboot"></p>
+<p>Javabean的类，参数是属性配置类，将其注入到ioc容器中</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image098.png"  alt="springboot"></p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image099.png"  alt="springboot"></p>
+<p>必须在spring.factories中配置自动配置类的位置</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image100.png"  alt="springboot"></p>
+<p>将两个maven工程install到maven仓库，安装好之后就可以在其他项目中调用</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image101.png"  alt="springboot"></p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image102.png"  alt="springboot"></p>
+<p>也可以在application.yml设置参数</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image103.png"  alt="springboot"></p>
+<p>输出结果</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image104.png"  alt="springboot"></p>
+<h1 id="注解版的springboot整合mybatis"><a href="#注解版的springboot整合mybatis" class="headerlink" title="注解版的springboot整合mybatis"></a>注解版的springboot整合mybatis</h1><h2 id="导入mysql依赖"><a href="#导入mysql依赖" class="headerlink" title="导入mysql依赖"></a>导入mysql依赖</h2><p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image105.png"  alt="springboot"></p>
+<h2 id="配置连接数据库的属性"><a href="#配置连接数据库的属性" class="headerlink" title="配置连接数据库的属性"></a>配置连接数据库的属性</h2><p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image106.png"  alt="springboot"></p>
+<p>在启动类中配置扫描范围</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image107.png"  alt="springboot"></p>
+<p>在注解mapper接口中加上@Mapper注解</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image108.png"  alt="springboot"></p>
+<p>完成后即可在service层中的类方法中调用接口中的方法</p>
+<p>如果javaBean中的属性与数据库中的属性不是完全一样的会查询不到，可以开启驼峰命名法来解决这个问题</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image109.png"  alt="springboot"></p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image110.png"  alt="springboot"></p>
+<p>Application.properties中开启驼峰命名</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image111.png"  alt="springboot"></p>
+<h1 id="Spring缓存"><a href="#Spring缓存" class="headerlink" title="Spring缓存"></a>Spring缓存</h1><p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image112.png"  alt="springboot"></p>
+<p>Logging.level.mapper包名=debug //打印运行的sql</p>
+<h2 id="EnableCaching"><a href="#EnableCaching" class="headerlink" title="@EnableCaching"></a>@EnableCaching</h2><p>标注在启动类上，开启基于注解的缓存</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image126.png"  alt="springboot"></p>
+<h2 id="Cacheable"><a href="#Cacheable" class="headerlink" title="@Cacheable"></a>@Cacheable</h2><p>标注在方法上，将方法的运行结果进行缓存，以后再要相同的数据，直接从缓存中获取，不再调用方法(参数不同也可以缓存的)</p>
+<p>cacheNames/value:指定缓存的名字</p>
+<p>key:使用缓存数据时使用的key，一个参数时默认是参数值</p>
+<p>cacheManager:指定缓存管理器；或者cacheResolver指定获取解析器</p>
+<p>condition:指定符合条件的情况下才缓存</p>
+<p>unless:否定缓存，当unless指定的条件为true，方法的返回值就不会被缓存，与condition相反</p>
+<p>sync：是否使用异步模式</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>自动配置类：CacheAutoConfiguration</p>
+<p>缓存的配置类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.boot.autoconfigure.cache.GenericCacheConfiguration</span><br><span class="line">org.springframework.boot.autoconfigure.cache.JCacheCacheConfiguration</span><br><span class="line">org.springframework.boot.autoconfigure.cache.EhCacheCacheConfiguration</span><br><span class="line">org.springframework.boot.autoconfigure.cache.HazelcastCacheConfiguration</span><br><span class="line">org.springframework.boot.autoconfigure.cache.InfinispanCacheConfiguration</span><br><span class="line">org.springframework.boot.autoconfigure.cache.CouchbaseCacheConfiguration</span><br><span class="line">org.springframework.boot.autoconfigure.cache.RedisCacheConfiguration</span><br><span class="line">org.springframework.boot.autoconfigure.cache.CaffeineCacheConfiguration</span><br><span class="line">org.springframework.boot.autoconfigure.cache.GuavaCacheConfiguration</span><br><span class="line">org.springframework.boot.autoconfigure.cache.SimpleCacheConfiguration</span><br><span class="line">org.springframework.boot.autoconfigure.cache.NoOpCacheConfiguration</span><br></pre></td></tr></table></figure>
+
+<p>SimpleCacheConfiguration是默认的缓存配置类，会向spring容器中注入一个cacheManager(ConcurrentMapCacheManager)</p>
+<p>可以获取和创建ConcurrentMapCache类型的缓存组件，作用是将数据保存在ConcurrentMap中</p>
+<h3 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a>运行流程</h3><p>1.方法运行之前，先去查询Cache,按照cacheNames指定的名字获取(CacheManager先获取相应的缓存)，第一次获取缓存会自动创建，如果有就直接使用 </p>
+<p>2.去cache中查找缓存的内容，使用一个key,默认就是方法的参数。</p>
+<p>key是按照某种策略生成，默认是使用keyGenerator生成的，默认使用SimpleKeyGenerator</p>
+<p>3.没有查到缓存就调用目标方法</p>
+<p>4.将目标方法返回的结果，放进缓存中</p>
+<h3 id="SimpleKeyGenerator生成key的默认策略"><a href="#SimpleKeyGenerator生成key的默认策略" class="headerlink" title="SimpleKeyGenerator生成key的默认策略"></a>SimpleKeyGenerator生成key的默认策略</h3><p>1.如果没有参数：key=new SimpleKey();</p>
+<p>2.如果有一个参数：key=参数值</p>
+<p>3.如果有多个参数：key=new SimpleKey(params);</p>
+<p>@Cacheable的key是不能用#result.id指定,可以使用自定义的key生成器，使用keyGenerator指定已经注入到spring容器中的自定义key生成类</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>@Cacheable标记的方法执行之前先来检查缓存中是否存在这个数据，默认按照参数的值作为key去查询缓存，如果没有就运行方法并将结果放入缓存。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Cacheable(value&#x3D;&#123;&quot;emp&quot;&#125;,keyGenerator&#x3D;&quot;myKeyGenerator&quot;,condition&#x3D;&quot;#a0&gt;1&quot;,unless&#x3D;&quot;#a0&#x3D;&#x3D;2&quot;)</span><br><span class="line">    public EmployeegetEmp(Integerid)&#123;</span><br><span class="line">        System.out.println(&quot;查询&quot;+id+&quot;号员工&quot;);</span><br><span class="line">        Employeeemp&#x3D;employeeMapper.getEmpById(id);</span><br><span class="line">        return emp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="CacheEvict清空缓存"><a href="#CacheEvict清空缓存" class="headerlink" title="@CacheEvict清空缓存"></a>@CacheEvict清空缓存</h2><p> 通过key指定想要清除的缓存</p>
+<p>allEntries=true：指定清除这个缓存中的所有数据</p>
+<p>beforeInvocation=false：缓存的清除是否在方法之前执行，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@CacheEvict(value&#x3D;&quot;emp&quot;,beforeInvocation&#x3D;true key&#x3D;&quot;#id&quot;)</span><br><span class="line">public void deleteEmp(Integerid)&#123;</span><br><span class="line">    System.out.println(&quot;deleteEmp:&quot;+id);</span><br><span class="line">    employeeMapper.deleteEmpById(id);</span><br><span class="line">    int i&#x3D;10&#x2F;0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="CachePut"><a href="#CachePut" class="headerlink" title="@CachePut"></a>@CachePut</h2><p>保证方法被调用，且结果被重新缓存(用来更新缓存 )</p>
+<p>先调用目标方法(可以做增删改查)，然后将目标方法的结果缓存起来</p>
+<p>需要指定key的值否则就会使用默认的参数employee作为key</p>
+<p>可以通过一下两种方式指定key:</p>
+<p>key=”#employee.id”:使用传入的参数的员工id；</p>
+<p>key=”#result.id”：使用返回后的id</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@CachePut(value&#x3D;&quot;emp&quot;,key&#x3D;&quot;#result.id&quot;)	</span><br><span class="line">public EmployeeupdateEmp(Employeeemployee)&#123;</span><br><span class="line">    System.out.println(&quot;updateEmp:&quot;+employee);</span><br><span class="line">    employeeMapper.updateEmp(employee);</span><br><span class="line">    return employee;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>serialize缓存数据时value序列化策略</p>
+<p>CacheManager缓存管理器，管理各种缓存组件，对缓存的真正CRUD操作在Cache组件中，每一个缓存组件有自己唯一一个名字</p>
+<h1 id="springboot默认支持两种技术来和ES交互"><a href="#springboot默认支持两种技术来和ES交互" class="headerlink" title="springboot默认支持两种技术来和ES交互"></a>springboot默认支持两种技术来和ES交互</h1><h2 id="Jest-默认不生效"><a href="#Jest-默认不生效" class="headerlink" title="Jest(默认不生效)"></a>Jest(默认不生效)</h2><p>使用需要导入jest的工具包</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image113.png"  alt="springboot"></p>
+<p>配置es的主机端口</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image114.png"  alt="springboot"></p>
+<p>bean中的主键必须加上@JestId</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image115.png"  alt="springboot"></p>
+<p>往es中写入数据</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image116.png"  alt="springboot"></p>
+<p>查询es中的数据</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image117.png"  alt="springboot"></p>
+<h2 id="SpringData-ElasticSearch"><a href="#SpringData-ElasticSearch" class="headerlink" title="SpringData ElasticSearch"></a>SpringData ElasticSearch</h2><p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image118.png"  alt="springboot"></p>
+<p>配置属性</p>
+<p>1.ElasticsearchProperties中Client节点信息 clusterNodes,clusterName,就是es的地址信息</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image119.png"  alt="springboot"></p>
+<p>2.ElasticsearchTemplate 操作es</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image120.png"  alt="springboot"></p>
+<h3 id="SpringData-ElasticSearch的使用"><a href="#SpringData-ElasticSearch的使用" class="headerlink" title="SpringData ElasticSearch的使用"></a>SpringData ElasticSearch的使用</h3><p>导入SpringData ElasticSearch启动器依赖</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image121.png"  alt="springboot"></p>
+<p>在bean中必须设置indexName和type属性</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image122.png"  alt="springboot"></p>
+<h4 id="自定义方法"><a href="#自定义方法" class="headerlink" title="自定义方法"></a>自定义方法</h4><p>注意这里的方法命名是有严格规范的，随便命名无效</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image123.png"  alt="springboot"></p>
+<p>添加数据</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image124.png"  alt="springboot"></p>
+<p>自定义方法查找数据</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/springboot/clip_image125.png"  alt="springboot"></p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">李上</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/06/04/springboot/">http://yoursite.com/2020/06/04/springboot/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com" target="_blank">定不辱使命</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/designpatterns.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.jpg" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2020/06/04/csnet/"><img class="prev_cover lazyload" data-src="/img/csnet.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">计算机网络学习笔记</div></div></a></div><div class="next-post pull_right"><a href="/2020/05/22/netty/"><img class="next_cover lazyload" data-src="/img/netty.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Netty学习笔记</div></div></a></div></nav></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By 李上</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><i class="darkmode fa fa-sun-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js" ></script><script src="/js/utils.js" ></script><script src="/js/main.js" ></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>设计模式学习笔记 | 定不辱使命</title><meta name="description" content="设计模式学习笔记"><meta name="author" content="李上"><meta name="copyright" content="李上"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="设计模式学习笔记"><meta name="twitter:description" content="设计模式学习笔记"><meta name="twitter:image" content="http://yoursite.com/img/designpatterns.jpg"><meta property="og:type" content="article"><meta property="og:title" content="设计模式学习笔记"><meta property="og:url" content="http://yoursite.com/2020/06/04/desigpatterns/"><meta property="og:site_name" content="定不辱使命"><meta property="og:description" content="设计模式学习笔记"><meta property="og:image" content="http://yoursite.com/img/designpatterns.jpg"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css" ><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/2020/06/04/desigpatterns/"><link rel="next" title="计算机网络学习笔记" href="http://yoursite.com/2020/06/04/csnet/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">15</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">52</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#设计模式的七大原则"><span class="toc-number">1.</span> <span class="toc-text">设计模式的七大原则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#单一职责原则"><span class="toc-number">1.1.</span> <span class="toc-text">单一职责原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#遵循单一职责原则"><span class="toc-number">1.2.</span> <span class="toc-text">遵循单一职责原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接口隔离原则"><span class="toc-number">1.3.</span> <span class="toc-text">接口隔离原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#依赖倒转原则面向接口编程"><span class="toc-number">1.4.</span> <span class="toc-text">依赖倒转原则面向接口编程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#里氏替换原则"><span class="toc-number">1.5.</span> <span class="toc-text">里氏替换原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开闭原则"><span class="toc-number">1.6.</span> <span class="toc-text">开闭原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#迪米特法则（最少知道原则）"><span class="toc-number">1.7.</span> <span class="toc-text">迪米特法则（最少知道原则）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#合成复用原则"><span class="toc-number">1.8.</span> <span class="toc-text">合成复用原则</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#设计模式的分类"><span class="toc-number">2.</span> <span class="toc-text">设计模式的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#单例模式"><span class="toc-number">2.1.</span> <span class="toc-text">单例模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#饿汉式（静态常量）"><span class="toc-number">2.1.1.</span> <span class="toc-text">饿汉式（静态常量）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#饿汉式（静态代码块）"><span class="toc-number">2.1.2.</span> <span class="toc-text">饿汉式（静态代码块）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#懒汉式单例模式（线程不安全）"><span class="toc-number">2.1.3.</span> <span class="toc-text">懒汉式单例模式（线程不安全）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#懒汉式单例模式（线程安全）"><span class="toc-number">2.1.4.</span> <span class="toc-text">懒汉式单例模式（线程安全）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#懒汉式单例模式（双重检查）"><span class="toc-number">2.1.5.</span> <span class="toc-text">懒汉式单例模式（双重检查）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#懒汉式单例模式（静态内部类）"><span class="toc-number">2.1.6.</span> <span class="toc-text">懒汉式单例模式（静态内部类）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#懒汉式单例模式（枚举）"><span class="toc-number">2.1.7.</span> <span class="toc-text">懒汉式单例模式（枚举）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jdk中的单例模式示范"><span class="toc-number">2.1.8.</span> <span class="toc-text">Jdk中的单例模式示范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单例模式的使用场景"><span class="toc-number">2.1.9.</span> <span class="toc-text">单例模式的使用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工厂模式"><span class="toc-number">2.2.</span> <span class="toc-text">工厂模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简单工厂模式"><span class="toc-number">2.2.1.</span> <span class="toc-text">简单工厂模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#未使用工厂模式的普通写法"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">未使用工厂模式的普通写法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#简单工厂模式的写法"><span class="toc-number">2.2.1.2.</span> <span class="toc-text">简单工厂模式的写法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#写法一：静态工厂类方法（推荐）"><span class="toc-number">2.2.1.2.1.</span> <span class="toc-text">写法一：静态工厂类方法（推荐）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#写法二"><span class="toc-number">2.2.1.2.2.</span> <span class="toc-text">写法二</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#工厂方法模式"><span class="toc-number">2.2.2.</span> <span class="toc-text">工厂方法模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抽象工厂模式"><span class="toc-number">2.2.3.</span> <span class="toc-text">抽象工厂模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK中的实例"><span class="toc-number">2.2.4.</span> <span class="toc-text">JDK中的实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#工厂模式的依赖抽象原则"><span class="toc-number">2.2.5.</span> <span class="toc-text">工厂模式的依赖抽象原则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原型模式"><span class="toc-number">2.3.</span> <span class="toc-text">原型模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#上面这种拷贝是浅拷贝"><span class="toc-number">2.3.1.</span> <span class="toc-text">上面这种拷贝是浅拷贝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#深拷贝的办法"><span class="toc-number">2.3.2.</span> <span class="toc-text">深拷贝的办法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方法一：将引用数据类型单独拷贝一次再复制到返回值中"><span class="toc-number">2.3.2.1.</span> <span class="toc-text">方法一：将引用数据类型单独拷贝一次再复制到返回值中</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法二：通过序列化和反序列化实现深拷贝"><span class="toc-number">2.3.2.2.</span> <span class="toc-text">方法二：通过序列化和反序列化实现深拷贝</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型模式使用场景"><span class="toc-number">2.3.3.</span> <span class="toc-text">原型模式使用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#建筑者模式"><span class="toc-number">2.4.</span> <span class="toc-text">建筑者模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">2.4.1.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#适配器模式"><span class="toc-number">2.5.</span> <span class="toc-text">适配器模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#桥接模式"><span class="toc-number">2.6.</span> <span class="toc-text">桥接模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常见的应用场景"><span class="toc-number">2.6.1.</span> <span class="toc-text">常见的应用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#装饰者模式"><span class="toc-number">2.7.</span> <span class="toc-text">装饰者模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组合模式"><span class="toc-number">2.8.</span> <span class="toc-text">组合模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#外观（过程）模式"><span class="toc-number">2.9.</span> <span class="toc-text">外观（过程）模式</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(/img/designpatterns.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">定不辱使命</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">设计模式学习笔记</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-06-04 13:48:31"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-06-04</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-17 19:19:32"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-06-17</span></time></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div id="article-container"><p><strong>设计模式的本质：将软件中变化的部分和不变化的部分分开</strong></p>
+<h1 id="设计模式的七大原则"><a href="#设计模式的七大原则" class="headerlink" title="设计模式的七大原则"></a>设计模式的七大原则</h1><h2 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h2><p>一个类中的函数不要太多，尽量一个类中只完成一个功能（一个类里只负责一个职责，可以有多个函数，主要目的是不对别的职责产生影响）</p>
+<p>细节：</p>
+<p>1.降低类的复杂度，一个类只负责一项职责</p>
+<p>2.提高类的可读性，可维护性（一个类只负责一个职责，当需要改动此职责时，不会对别的功能产生影响）</p>
+<p>3.降低变更引起的风险</p>
+<p>4.通常情况下，我们应该遵循单一职责原则，只有逻辑足够简单，才可以在代码级违反单一职责原则（类中的方法足够少，就仍然可以在方法级别保持单一职责原则）</p>
+<h2 id="遵循单一职责原则"><a href="#遵循单一职责原则" class="headerlink" title="遵循单一职责原则"></a>遵循单一职责原则</h2><p>一个类只负责一项职能（最原子的），保持类的单一职责</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image001.png"  alt="desigpatterns.assets"></p>
+<p>类中方法足够少，且彼此没有关联，虽然不能保持类的单一职责，但是仍然可以保持方法的单一职责原则</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image002.png"  alt="desigpatterns.assets"></p>
+<p>注意：不要再代码中使用大量的分支判断（ifelse switch），可以通过多定义类/方法来减少分支。大量分支会造成高耦合？？？？？？？</p>
+<h2 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h2><p>客户端（main函数)不应该依赖它不需要的接口，一个类对另外一个类的依赖应该建立在最小的接口上</p>
+<p>未采用接口隔离的形式：interface1定义了五个方法，b类实现interface1并实现了接口的五个方法，而A类只依赖使用了operation1,B类中多实现的几个方法是多余的。符合隔离原则的正确的做法是将interface1的五个接口拆分开，B类只实现客户端需要，A类依赖使用的接口函数operation1即可</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image003.png"  alt="desigpatterns.assets"></p>
+<h2 id="依赖倒转原则面向接口编程"><a href="#依赖倒转原则面向接口编程" class="headerlink" title="依赖倒转原则面向接口编程"></a>依赖倒转原则面向接口编程</h2><p>依赖倒转原则：</p>
+<p>1.高层模块不应该依赖低层模块，二者都应该依赖于其抽象</p>
+<p>2.抽象不应该依赖于细节，细节应该依赖抽象</p>
+<p>当person接受的参数变动时，就需要更改receive函数的参数。符合依赖倒转原则的做法是定义一个iReceiver接口</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image004.png"  alt="desigpatterns.assets"></p>
+<p>定义接口后，main函数调用receive方法时，可以传入多种类型，增强内聚性</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image005.png"  alt="desigpatterns.assets"></p>
+<p><strong>依赖关系传递的三种方式：能够用接口参数的都用接口参数，因为接口参数可以泛化为无数的具体对象，高内聚</strong></p>
+<p>1.接口传递</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image006.png"  alt="desigpatterns.assets"></p>
+<p>2.构造方法传递</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image007.png"  alt="desigpatterns.assets"></p>
+<p>3.setter方式传递</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image008.png"  alt="desigpatterns.assets"></p>
+<p>细节：</p>
+<p>1.低层模块尽量都要有抽象类或者接口，或者两者都有，程序稳定性更好</p>
+<p>2.变量的声明类型尽量是抽象类或接口，这样我们的变量引用和实际对象间，就存在一个缓冲层，利于程序扩展和优化</p>
+<p>3.继承时遵循里氏替换原则</p>
+<h2 id="里氏替换原则"><a href="#里氏替换原则" class="headerlink" title="里氏替换原则"></a>里氏替换原则</h2><p>使用继承时，在子类中尽量不要重写父类的方法，重写父类方法会增强两个类的耦合性</p>
+<p>在适当的情况下，可以通过聚合，组合，依赖来解决问题 </p>
+<p>比如：将A,B类的公共函数抽取出来放在base类中，A,B继承base类来替换B继承A,重写A中的方法</p>
+<p>开闭原则ocp：</p>
+<p>迪米特法则：</p>
+<p>合成复用原则：</p>
+<h2 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h2><p>当软件需求变化时，尽量通过扩展软件实体的行为来实现变化，而不是通过修改已有的代码来实现变化</p>
+<p><strong>接口和抽象类有什么区别</strong></p>
+<p>1、抽象类和接口都不能直接实例化，如果要实例化，抽象类变量必须指向实现所有抽象方法的子类对象，接口变量必须指向实现所有接口方法的类对象。</p>
+<p>2、抽象类要被子类继承，接口要被类实现。</p>
+<p>3、接口只能做方法申明，抽象类中可以做方法申明，也可以做方法实现</p>
+<p>4、接口里定义的变量只能是公共的静态的常量，抽象类中的变量是普通变量。</p>
+<p>5、抽象类里的抽象方法必须全部被子类所实现，如果子类不能全部实现父类抽象方法，那么该子类只能是抽象类。同样，一个实现接口的时候，如不能全部实现接口方法，那么该类也只能为抽象类。</p>
+<p>6、抽象方法只能申明，不能实现，接口是设计的结果 ，抽象类是重构的结果</p>
+<p>7、抽象类里可以没有抽象方法</p>
+<p>8、如果一个类里有抽象方法，那么这个类只能是抽象类</p>
+<p>9、抽象方法要被实现，所以不能是静态的，也不能是私有的。</p>
+<p>10、接口可继承接口，并可多继承接口，但类只能单根继承。</p>
+<p>11.抽象类的抽象方法，继承类必须实现，具体方法不会。</p>
+<h2 id="迪米特法则（最少知道原则）"><a href="#迪米特法则（最少知道原则）" class="headerlink" title="迪米特法则（最少知道原则）"></a>迪米特法则（最少知道原则）</h2><p>对自己所依赖的类的信息知道的越少越好</p>
+<p>一个对象应该对其他对象保持最少的了解，一个对象的局部变量中最好不要出现另外一个类对象（成员变量，方法参数，方法返回值都可以的）</p>
+<p>避免A类中出现局部变量中出现B类对象的方法是,在B类中把方法封装好，A类通过方法参数传入B类对象后，直接调用B类的方法</p>
+<h2 id="合成复用原则"><a href="#合成复用原则" class="headerlink" title="合成复用原则"></a>合成复用原则</h2><p>少使用继承（会增加两个类的耦合度），多使用合成/聚合的方式</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image001.jpg"  alt="desigpatterns.assets"></p>
+<p><strong>设计原则核心思想</strong></p>
+<p>找出应用中可能需要变化之处，把他们独立出来，不要和那些不需要变化的代码混在一起</p>
+<p>针对接口编程，而不是针对实现编程</p>
+<p>为了交互对象之间的松耦合设计而努力</p>
+<p>UML类图：用来描述系统中类本身的组成和类之间的各种静态关系</p>
+<p>类之间的关系：依赖，泛化（继承），实现，关联，聚合，组成</p>
+<p>依赖：只要在类中使用到了对方，那他们之间就存在依赖关系</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image002.jpg"  alt="desigpatterns.assets"></p>
+<p>泛化：泛化是依赖的特例，泛化关系就是继承关系</p>
+<p>实现：继承接口，实现方法的关系就是实现</p>
+<p>关联：依赖的特例，表示类与类之间的关系</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image003.jpg"  alt="desigpatterns.assets"></p>
+<p>聚合：聚合关系是关联的特列，整体和部分可以分开是聚合。聚合是部分指向整体</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image004.jpg"  alt="desigpatterns.assets"></p>
+<p>组合：组合关系表示整体和部分的关系，整体和部分不能分开，组合是部分指向整体。整体和部分不可分割，反应到代码层面就是整体中声明部分类或整体与部分之间存在级联关系</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image005.jpg"  alt="desigpatterns.assets"></p>
+<h1 id="设计模式的分类"><a href="#设计模式的分类" class="headerlink" title="设计模式的分类"></a>设计模式的分类</h1><p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image006.jpg"  alt="desigpatterns.assets"></p>
+<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a><strong>单例模式</strong></h2><p>采取一定的办法，保证整个系统中某个类只能存在一个对象实例，并且该类只提供一个取得其对象实例的静态方法</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image007.jpg"  alt="img"></p>
+<h3 id="饿汉式（静态常量）"><a href="#饿汉式（静态常量）" class="headerlink" title="饿汉式（静态常量）"></a>饿汉式（静态常量）</h3><p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image008.jpg"  alt="img"></p>
+<p>优点：在类装载的时候就完成了实例化，避免了线程同步问题？？？</p>
+<p>缺点：在类装载的时候就完成了实例化，无法达到懒加载的效果，如果从开到结束都没有使用过该类实例，会导致内存的浪费</p>
+<h3 id="饿汉式（静态代码块）"><a href="#饿汉式（静态代码块）" class="headerlink" title="饿汉式（静态代码块）"></a>饿汉式（静态代码块）</h3><p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image009.jpg"  alt="img"></p>
+<p>优缺点与静态常量饿汉式单例模式相同</p>
+<h3 id="懒汉式单例模式（线程不安全）"><a href="#懒汉式单例模式（线程不安全）" class="headerlink" title="懒汉式单例模式（线程不安全）"></a><strong>懒汉式单例模式（线程不安全）</strong></h3><p>起到了懒加载德作用，但是由于线程不安全问题，开发中不要使用</p>
+<p>线程不安全：当两个线程同时执行到if(singleton == null)时，线程一通过这条语句还没继续向下执行时，线程二也能通过这条语句，进而会导致程序中出现多个类对象，单例模式失效</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image010.jpg"  alt="img"></p>
+<h3 id="懒汉式单例模式（线程安全）"><a href="#懒汉式单例模式（线程安全）" class="headerlink" title="懒汉式单例模式（线程安全）"></a><strong>懒汉式单例模式（线程安全）</strong></h3><p>虽然保证了线程安全，但是每个线程都要执行上锁同步，效率低，不使用</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image011.jpg"  alt="img"></p>
+<p>下图所示的写法，无法保证线程安全</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image012.jpg"  alt="img"></p>
+<h3 id="懒汉式单例模式（双重检查）"><a href="#懒汉式单例模式（双重检查）" class="headerlink" title="懒汉式单例模式（双重检查）"></a><strong>懒汉式单例模式（双重检查）</strong></h3><p>volatile确保类对象可见性，双重检查确保不会产生多个类对象。线程安全，延时加载，效率较高，推荐使用</p>
+<p>第一个if(singleton == null)的主要作用是，避免每一次调用getInstance()方法时，都会执行上锁同步，提高效率</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image013.jpg"  alt="img"></p>
+<h3 id="懒汉式单例模式（静态内部类）"><a href="#懒汉式单例模式（静态内部类）" class="headerlink" title="懒汉式单例模式（静态内部类）"></a><strong>懒汉式单例模式（静态内部类）</strong></h3><p>静态内部类所在类加载时，不会被加载</p>
+<p>调用静态内部类时，静态内部类才会被加载</p>
+<p>静态内部类加载过程中是线程安全的</p>
+<p>综上所述，静态内部类单例模式满足懒加载，线程安全，推荐使用</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image014.jpg"  alt="img"></p>
+<h3 id="懒汉式单例模式（枚举）"><a href="#懒汉式单例模式（枚举）" class="headerlink" title="懒汉式单例模式（枚举）"></a><strong>懒汉式单例模式（枚举）</strong></h3><p>不仅能避免多线程同步问题，而且还能防止反序列化重新创建新的对象？？？？，这种方式的单例模式应该是饿汉模式，类初始化时就已经加载了类对象？？？？官方推荐模式？？？？</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image015.jpg"  alt="img"></p>
+<h3 id="Jdk中的单例模式示范"><a href="#Jdk中的单例模式示范" class="headerlink" title="Jdk中的单例模式示范"></a>Jdk中的单例模式示范</h3><p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image016.jpg"  alt="img"></p>
+<h3 id="单例模式的使用场景"><a href="#单例模式的使用场景" class="headerlink" title="单例模式的使用场景"></a>单例模式的使用场景</h3><p>需要频繁创建销毁的对象</p>
+<p>创建耗时过多，消耗资源过多的重量级对象</p>
+<p>经常用到的对象，工具类对象，频繁操作数据库的对象</p>
+<p>单例模式对象需要通过类的函数获取</p>
+<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a><strong>工厂模式</strong></h2><h3 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a><strong>简单工厂模式</strong></h3><h4 id="未使用工厂模式的普通写法"><a href="#未使用工厂模式的普通写法" class="headerlink" title="未使用工厂模式的普通写法"></a>未使用工厂模式的普通写法</h4><p>定义披萨的抽象类</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image017.jpg"  alt="img"></p>
+<p>继承披萨抽象类，实现prepare方法</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image018.jpg"  alt="img"></p>
+<p>声明订餐类</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image019.jpg"  alt="img"></p>
+<p>披萨店订餐类方法</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image020.jpg"  alt="img"></p>
+<h4 id="简单工厂模式的写法"><a href="#简单工厂模式的写法" class="headerlink" title="简单工厂模式的写法"></a>简单工厂模式的写法</h4><p>创建工厂类（使用静态方法）</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image021.jpg"  alt="img"></p>
+<p>在订餐类中调用工程类，获得pizza类</p>
+<h5 id="写法一：静态工厂类方法（推荐）"><a href="#写法一：静态工厂类方法（推荐）" class="headerlink" title="写法一：静态工厂类方法（推荐）"></a>写法一：静态工厂类方法（推荐）</h5><p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image022.jpg"  alt="img"></p>
+<h5 id="写法二"><a href="#写法二" class="headerlink" title="写法二"></a>写法二</h5><p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image023.jpg"  alt="img"></p>
+<p>区别在于简单工厂模式可以解耦合：（普通的写法，OrderPizza需要和Pizza关联）</p>
+<p>多个OrderPizza指的不是系统中真的会定义多个OrderPizza类，指的是系统中会有多处调用工厂类获取类对象</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image024.jpg"  alt="img"></p>
+<h3 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a><strong>工厂方法模式</strong></h3><p>这个方法完全是凸显面向对象编程，抽象类编程，和工厂没啥关系吧？？？</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image025.jpg"  alt="img"></p>
+<h3 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a><strong>抽象工厂模式</strong></h3><p>与简单工厂模式的区别就是，除了实体抽象，工厂类也抽象了，适用于逻辑复杂的业务（抽象工厂类用的是接口）</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image026.jpg"  alt="img"></p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image027.jpg"  alt="img"></p>
+<h3 id="JDK中的实例"><a href="#JDK中的实例" class="headerlink" title="JDK中的实例"></a>JDK中的实例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;调用实例</span><br><span class="line">Calendar calendar &#x3D; Calendar.getInstance();</span><br><span class="line">&#x2F;&#x2F;通过工厂类获取实例的方法</span><br><span class="line">public static Calendar getInstance(TimeZone zone) &#123;</span><br><span class="line">  return createCalendar(zone, Locale.getDefault(Category.FORMAT));</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;相当于工厂类（把共性的代码提取出来，解耦合）</span><br><span class="line">private static Calendar createCalendar(TimeZone zone, Locale aLocale) &#123;....&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="工厂模式的依赖抽象原则"><a href="#工厂模式的依赖抽象原则" class="headerlink" title="工厂模式的依赖抽象原则"></a>工厂模式的依赖抽象原则</h3><p>创建对象实例时，不要直接new，而是把new这个动作放在工厂类中，并返回以供调用</p>
+<p>不要让类继承具体类，而是继承抽象类，实现接口</p>
+<p>不要覆盖基类中已经实现了的方法</p>
+<h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a><strong>原型模式</strong></h2><p>克隆类对象：实现Cloneable接口,实现clone方法</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image028.jpg"  alt="img"></p>
+<p>调用克隆函数</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image029.jpg"  alt="img"></p>
+<h3 id="上面这种拷贝是浅拷贝"><a href="#上面这种拷贝是浅拷贝" class="headerlink" title="上面这种拷贝是浅拷贝"></a>上面这种拷贝是浅拷贝</h3><p>对于数据类型是基本数据类型的成员变量，浅拷贝会直接进行值传递，也就是将改属性值复制一份给新的对象，两个基本数据类型的hashcode相同，但是改动一个对另外加一个没有影响？？？？？（equals，==比较返回值都是true）???</p>
+<p>对于数据类型是引用数据类型的成员变量，比如说：数组，类对象，则会进行浅拷贝传递。就是将该成员变量的地址拷贝给新的对象，这会导致改动一个对象，会影响别的对象</p>
+<p>深拷贝就是会直接给新的对象中的引用数据类型申请内存空间</p>
+<h3 id="深拷贝的办法"><a href="#深拷贝的办法" class="headerlink" title="深拷贝的办法"></a>深拷贝的办法</h3><h4 id="方法一：将引用数据类型单独拷贝一次再复制到返回值中"><a href="#方法一：将引用数据类型单独拷贝一次再复制到返回值中" class="headerlink" title="方法一：将引用数据类型单独拷贝一次再复制到返回值中"></a>方法一：将引用数据类型单独拷贝一次再复制到返回值中</h4><p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image030.jpg"  alt="img"></p>
+<p>调用克隆方法</p>
+<p>String[] array = {<strong>“aaa”</strong>,<strong>“bbb”</strong>};</p>
+<p>Sheep sheep = <strong>new</strong> Sheep(<strong>“zhangsna”</strong>,<strong>“famle”</strong>,array);</p>
+<p>Sheep sheep2 = (Sheep)sheep.clone();</p>
+<h4 id="方法二：通过序列化和反序列化实现深拷贝"><a href="#方法二：通过序列化和反序列化实现深拷贝" class="headerlink" title="方法二：通过序列化和反序列化实现深拷贝"></a>方法二：通过序列化和反序列化实现深拷贝</h4><p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image031.jpg"  alt="img"></p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image032.jpg"  alt="img"></p>
+<h3 id="原型模式使用场景"><a href="#原型模式使用场景" class="headerlink" title="原型模式使用场景"></a>原型模式使用场景</h3><p>创建新的对象比较复杂时，可以通过原型模式简化创建过程，提高效率</p>
+<p>优点：动态的克隆对象，克隆对象属性发生改变时也不用修改代码</p>
+<p>缺点：需要给每一个类都配备克隆方法，对已有类属性进行修改时需要更改克隆方法，违反     了开闭原则</p>
+<p>针对第二种深拷贝方法的克隆违背开闭原则的避免方法:(将克隆方法提取出来，在抽象类中定义)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public abstract class XuLieHua implements Serializable &#123;</span><br><span class="line">  public Object deepClone()&#123;.....&#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Sheep extends XuLieHua&#123;.....&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="建筑者模式"><a href="#建筑者模式" class="headerlink" title="建筑者模式"></a>建筑者模式</h2><p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image033.jpg"  alt="img"></p>
+<p>House</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image034.jpg"  alt="img"></p>
+<p>HouseBuilder</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image035.jpg"  alt="img"></p>
+<p>CommonHouse</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image036.jpg"  alt="img"></p>
+<p>HighBuilding</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image037.jpg"  alt="img"></p>
+<p>HouseDirector</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image038.jpg"  alt="img"></p>
+<p>Client</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image039.jpg"  alt="img"></p>
+<p>创建者模式的整个实现过程都是调用的抽象类对象，只有在客户端使用的时候，才会传入具体的实体类参数</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>客户端不必知道产品内部组成细节，将产品本身与产品的创建过程解耦，使得相同的创建过程可以创建不同的产品对象</p>
+<p>客户端使用不同的具体建造类就可以获得不同的产品对象</p>
+<p>可以更加精细的控制产品创建的过程</p>
+<p>增加新的具体建造类无需修改原有类库代码，符合开闭原则</p>
+<p><strong>产品之间具有大量相似点才能采用创建者模式，差异过大不适合创建者模式</strong></p>
+<p>建造者模式和抽象工厂模式的区别：</p>
+<p>1.后者的目的是创建不同的类对象（结果），前者的目的是按照指定蓝图创建类（过程）</p>
+<h2 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a><strong>适配器模式</strong></h2><p>将一个类的接口转换为另一种接口，让原本接口不兼容的类可以兼容</p>
+<p>类适配：</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image040.jpg"  alt="img"></p>
+<p>Voltage220V</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image041.jpg"  alt="img"></p>
+<p>IVoltage5V</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image042.jpg"  alt="img"></p>
+<p>VoltageAdapter</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image043.jpg"  alt="img"></p>
+<p>Phone</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image044.jpg"  alt="img"></p>
+<p>Client</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image045.jpg"  alt="img"></p>
+<p>传参数时传入接口，那么接口的所有的实现类都可以被传入作为参数</p>
+<p>对象适配器：和类适配器基本相同，不过在使用Voltage220V类时，用的是聚合/组合，而不是继承</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image046.jpg"  alt="img"></p>
+<p>接口适配器模式：适用于实现一个接口，但是不实现它的所有方法</p>
+<p>Interface1</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image047.jpg"  alt="img"></p>
+<p>AbstractInterface：通过设置中间抽象类的方法来适配</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image048.jpg"  alt="img"></p>
+<p>Client</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image049.jpg"  alt="img"></p>
+<p>Springmvc中适配器的使用：？？？？？</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image050.jpg"  alt="img"></p>
+<h2 id="桥接模式"><a href="#桥接模式" class="headerlink" title="桥接模式"></a>桥接模式</h2><p>解决类爆炸扩展性问题</p>
+<p>桥接模式：将实现与抽象放在两个不同的类层次中，使两个层次可以独立改变，是一种结构性设计模式，基于类的最小设计原则</p>
+<p>形容词和名词之间桥接，避免大量创建形容词+名字的类</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image051.png"  alt="desigpatterns.assets"></p>
+<p>Brand</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image052.png"  alt="desigpatterns.assets"></p>
+<p>XiaoMi</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image053.png"  alt="desigpatterns.assets"></p>
+<p>HuaWei</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image054.png"  alt="desigpatterns.assets"></p>
+<p>Phone</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image055.png"  alt="desigpatterns.assets"></p>
+<p>FoldedPhone</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image056.png"  alt="desigpatterns.assets"></p>
+<p>Client</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image057.png"  alt="desigpatterns.assets"></p>
+<h3 id="常见的应用场景"><a href="#常见的应用场景" class="headerlink" title="常见的应用场景"></a><strong>常见的应用场景</strong></h3><p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image058.png"  alt="desigpatterns.assets"></p>
+<h2 id="装饰者模式"><a href="#装饰者模式" class="headerlink" title="装饰者模式"></a><strong>装饰者模式</strong></h2><p>动态的将新功能附加到对象上，在对象功能扩展方面，比继承更有弹性，且体现了开闭原则</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image059.png"  alt="desigpatterns.assets"></p>
+<h2 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h2><p>适合遍历组织机构，或者处理的对象具有树形结构时，非常适合用树形结构；如果叶子和节点有很大的差异性，比如很多方法和属性都不一样，不适合使用组合模式</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image060.png"  alt="desigpatterns.assets"></p>
+<p>OrganizationComponent</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image061.png"  alt="desigpatterns.assets"></p>
+<p>University</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image062.png"  alt="desigpatterns.assets"></p>
+<p>College</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image063.png"  alt="desigpatterns.assets"></p>
+<p>Department</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image064.png"  alt="desigpatterns.assets"></p>
+<p>Client</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image065.png"  alt="desigpatterns.assets"></p>
+<p>运行打印结果：</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image066.png"  alt="img"></p>
+<h2 id="外观（过程）模式"><a href="#外观（过程）模式" class="headerlink" title="外观（过程）模式"></a>外观（过程）模式</h2><p>通过定义一个一致的接口，用以屏蔽内部子系统的细节，使得调用端只需跟这个接口发生调用，而无需关心这个子系统的内部细节</p>
+<p>将各个子类聚合到facade外观类中，在外观类中使用相应方法（把变化的部分和不变化的部分放到不同的位置）</p>
+<p><img src="/" class="lazyload" data-src="/2020/06/04/desigpatterns/clip_image067.png"  alt="img"></p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">李上</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/06/04/desigpatterns/">http://yoursite.com/2020/06/04/desigpatterns/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com" target="_blank">定不辱使命</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/designpatterns.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.jpg" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2020/06/04/csnet/"><img class="next_cover lazyload" data-src="/img/csnet.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">计算机网络学习笔记</div></div></a></div></nav></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By 李上</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><i class="darkmode fa fa-sun-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js" ></script><script src="/js/utils.js" ></script><script src="/js/main.js" ></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>
