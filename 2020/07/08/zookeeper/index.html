@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>zookeeper学习笔记 | 定不辱使命</title><meta name="description" content="zookeeper学习笔记"><meta name="author" content="李上"><meta name="copyright" content="李上"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="zookeeper学习笔记"><meta name="twitter:description" content="zookeeper学习笔记"><meta name="twitter:image" content="http://yoursite.com/img/zookeeper.jpg"><meta property="og:type" content="article"><meta property="og:title" content="zookeeper学习笔记"><meta property="og:url" content="http://yoursite.com/2020/07/08/zookeeper/"><meta property="og:site_name" content="定不辱使命"><meta property="og:description" content="zookeeper学习笔记"><meta property="og:image" content="http://yoursite.com/img/zookeeper.jpg"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css" ><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/2020/07/08/zookeeper/"><link rel="prev" title="数据库中间件" href="http://yoursite.com/2020/07/20/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E9%97%B4%E4%BB%B6/"><link rel="next" title="JVM学习笔记" href="http://yoursite.com/2020/07/03/jvm/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">28</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">52</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Zookeeper概述"><span class="toc-number">1.</span> <span class="toc-text">Zookeeper概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ZooKeeper特性"><span class="toc-number">1.1.</span> <span class="toc-text">ZooKeeper特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ZooKeeper集群角色"><span class="toc-number">1.2.</span> <span class="toc-text">ZooKeeper集群角色</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Leader"><span class="toc-number">1.2.1.</span> <span class="toc-text">Leader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Follower"><span class="toc-number">1.2.2.</span> <span class="toc-text">Follower</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Observer"><span class="toc-number">1.2.3.</span> <span class="toc-text">Observer</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ZooKeeper集群搭建"><span class="toc-number">2.</span> <span class="toc-text">ZooKeeper集群搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#卸载OpenJDK"><span class="toc-number">2.1.</span> <span class="toc-text">卸载OpenJDK</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#环境变量"><span class="toc-number">2.1.1.</span> <span class="toc-text">环境变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#检测集群时间是否同步"><span class="toc-number">2.2.</span> <span class="toc-text">检测集群时间是否同步</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#检测防火墙是否关闭"><span class="toc-number">2.3.</span> <span class="toc-text">检测防火墙是否关闭</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置文件"><span class="toc-number">2.4.</span> <span class="toc-text">配置文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ZooKeeper数据模型"><span class="toc-number">3.</span> <span class="toc-text">ZooKeeper数据模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#节点类型"><span class="toc-number">3.1.</span> <span class="toc-text">节点类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#节点属性"><span class="toc-number">3.2.</span> <span class="toc-text">节点属性</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(/img/zookeeper.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">定不辱使命</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">zookeeper学习笔记</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-07-08 09:37:29"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-07-08</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-08-14 15:07:00"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-08-14</span></time></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div id="article-container"><h1 id="Zookeeper概述"><a href="#Zookeeper概述" class="headerlink" title="Zookeeper概述"></a>Zookeeper概述</h1><p>Zookeeper是一个分布式协调服务的开源框架，主要用来解决分布式集群中应用系统的一致性问题</p>
+<p>ZooKeeper本质上是一个分布式的小文件存储系统。提供基于类似于文件系统的目录树方式的数据存储，并且可以对树中的节点进行管理，从而用来维护和监控存储的数据的状态变化。通过监控这些数据的变化，达到基于数据的集群管理。诸如统一命名服务，分布式配置管理，分布式消息队列，分布式锁，分布式协调功能</p>
+<h2 id="ZooKeeper特性"><a href="#ZooKeeper特性" class="headerlink" title="ZooKeeper特性"></a>ZooKeeper特性</h2><p>全局一致性:每个server保存一份相同的数据副本，client无论连到那个server,展示的数据都是一致的，这是最重要的特性</p>
+<p>可靠性:如果消息被其中一台服务器接受，那么将被所有的服务器接受</p>
+<p>顺序性:包括全局有序和偏序两种，全局有序是指如果在一台服务器上消息a在消息b前发布，则在所有server上消息a都将在消息b前被发布；偏序是指一个消息b在消息a后被被同一个发送者发布，a必须排在b前面</p>
+<p>数据更新原子性：一次数据更新要么成功(半数以上节点成功)，要么失败，不存在中间状态</p>
+<p>实时性：ZooKeeper保证客户端将在一个时间间隔范围内获得服务器更新信息，或者服务器失效信息</p>
+<h2 id="ZooKeeper集群角色"><a href="#ZooKeeper集群角色" class="headerlink" title="ZooKeeper集群角色"></a>ZooKeeper集群角色</h2><h3 id="Leader"><a href="#Leader" class="headerlink" title="Leader"></a>Leader</h3><p>ZooKeeper集群工作的核心，事务请求(写操作)的唯一调度和处理者，保证集群事务处理的顺序性</p>
+<p>集群内部各个服务器的调度者</p>
+<p>对于create,setDate,delete等有写操作的请求，则需要统一转发给leader处理，leader需要决定编号，执行操作，这个过程称为一个事务</p>
+<p><img src="/" class="lazyload" data-src="/2020/07/08/zookeeper/001.png"  alt="zookeeper"></p>
+<h3 id="Follower"><a href="#Follower" class="headerlink" title="Follower"></a>Follower</h3><p>处理客户端非事务(写操作)请求，转发事务请求给leader</p>
+<p>参与集群Leader选举投票</p>
+<h3 id="Observer"><a href="#Observer" class="headerlink" title="Observer"></a>Observer</h3><p>针对访问量比较大的zookeeper集群，还可新增观察者角色</p>
+<p>观察zookeeper集群的最新状态变化并将这些状态同步过来，其对于非事务请求可以可以进行独立处理，对于事务请求，则会转发给leader服务器进行处理</p>
+<p>不会参与任何形式的投票只提供非事务服务，通常用于在不影响集群事务处理能力的前提下提升集群的非事务处理能力</p>
+<h1 id="ZooKeeper集群搭建"><a href="#ZooKeeper集群搭建" class="headerlink" title="ZooKeeper集群搭建"></a>ZooKeeper集群搭建</h1><p>leader+follower模式的集群</p>
+<ol>
+<li>配置主机名称到IP地址映射配置</li>
+<li>修改ZooKeeper配置文件</li>
+<li>远程复制分发安装文件</li>
+<li>设置myid</li>
+<li>启动ZooKeeper集群</li>
+</ol>
+<p>如果想要使用Observer模式，可在对应节点的配置文件添加如下配置</p>
+<p>peerType=observer,其次，必须在配置文件指定哪些节点被指定为Observer，如:server.1：localhost:2181:3181:observer</p>
+<h2 id="卸载OpenJDK"><a href="#卸载OpenJDK" class="headerlink" title="卸载OpenJDK"></a>卸载OpenJDK</h2><p>查看jdk：rpm -qa | grep java</p>
+<p>卸载jdk：rpm -e –nodeps xxx</p>
+<h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#set java environment</span><br><span class="line">export  JAVA_HOME&#x3D;&#x2F;root&#x2F;usr&#x2F;jdk-14</span><br><span class="line">export CLASSPATH&#x3D;.:$&#123;JAVA_HOME&#125;&#x2F;jre&#x2F;lib&#x2F;rt.jar:$&#123;JAVA_HOME&#125;&#x2F;lib&#x2F;dt.jar:$&#123;JAVA_HOME&#125;&#x2F;lib&#x2F;tools.jar</span><br><span class="line">export PATH&#x3D;$PATH:$&#123;JAVA_HOME&#125;&#x2F;bin</span><br></pre></td></tr></table></figure>
+
+<h2 id="检测集群时间是否同步"><a href="#检测集群时间是否同步" class="headerlink" title="检测集群时间是否同步"></a>检测集群时间是否同步</h2><h2 id="检测防火墙是否关闭"><a href="#检测防火墙是否关闭" class="headerlink" title="检测防火墙是否关闭"></a>检测防火墙是否关闭</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service iptables stop&#x2F;&#x2F;关闭防火墙</span><br><span class="line">systemctl stop firewalld.service&#x2F;&#x2F;&#x2F;&#x2F;关闭防火墙</span><br><span class="line">chkconfig iptables&#x2F;&#x2F;设置开机自动关闭防火墙</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dateDir：数据存储位置</span><br><span class="line">clientPort：客户端连接zookeeper服务器的端口，zookeeper会监听这个端口接受客户端的访问请求</span><br><span class="line">tickTime：作为zookeeper服务器之间或客户端与服务器之间维持心跳的时间间隔，也就是说每个tickTime时间就</span><br></pre></td></tr></table></figure>
+
+<p>1.server.A=B:C:D中的A是一个数字，表示这个是第几号服务器，B是这个服务器的IP地址，C是心跳端口，D是选举端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">server.1&#x3D;47.101.63.177:2888:3888</span><br><span class="line">server.2&#x3D;192.168.197.131:2888:3888</span><br><span class="line">server.3&#x3D;192.168.197.130:2888:3888</span><br></pre></td></tr></table></figure>
+
+<p>2.在data文件夹下创建一个myid文件，并填入server序号值</p>
+<p>3.通过分发指令，将数据同步到其他机器</p>
+<p>4.配置zookeeper的环节变量</p>
+<h1 id="ZooKeeper数据模型"><a href="#ZooKeeper数据模型" class="headerlink" title="ZooKeeper数据模型"></a>ZooKeeper数据模型</h1><p>每个Znode节点有三个部分组成：</p>
+<ol>
+<li>stat:状态信息，描述该Znode版本，权限等信息</li>
+<li>data:与该Znode关联的数据</li>
+<li>children:该Znode下的子节点</li>
+</ol>
+<p>zookeeper数据模型在结构上和标准文件系统非常相似，拥有一个层次的命名空间，都是采用树型层次结构，树中的每一个节点被称为一个Znode。和文件系统的目录树一样，ZooKeeper树中的每一个节点都可以拥有子节点，但也有不同之处</p>
+<ol>
+<li>Znode兼具文件和目录两种特点。既像文件一样维护着数据，元信息，ACL,时间戳等数据结构，又像目录一样可以作为路径标识的一部分，并可以具有子Znod。用户对Znode具有增删改查等操作</li>
+<li>Znode具有原子性操作，读操作将获取与节点相关的所有数据，写操作也将替换掉节点的所有数据。另外，每一个节点都拥有自己的ACL(访问控制列表)，这个列表规定了用户的权限，即限定了特定用于对目标节点可以执行的操作</li>
+<li>Znode存储数据大小有限制，ZooKeeper虽然关联了一些数据，但并没有被设计为常规的数据库或者大数据存储，相反的是，它用来管理调用数据，比如分布式应用中的配置文件信息，状态信息，汇集位置等等。这些数据的共同特性就是它们都是很小的数据，通常以KB为大小单位。ZooKeeper的服务器和客户端都被设计为严格检查并限制每个Znode的数据大小至多为1M，常规使用应该远小于此值</li>
+<li>Znode通过路径引用，如铜Unix中的文件路径。路径必须是绝对的，因此它们必须由斜杠字来开头。除此以外，它们必须是唯一的，也就是说每一个路径只有一个表示，因此这些路径不能改变。在Zookeeper中，路径由Unicode字符串组成，并且有一些限制。字符串“/zookeeper”用以保存管理信息，比如关键配额信息</li>
+</ol>
+<h2 id="节点类型"><a href="#节点类型" class="headerlink" title="节点类型"></a>节点类型</h2><p>Znode有两种，分别是临时节点和永久节点，节点的类型在创建时即被确定，并且不能改变</p>
+<p>临时节点：该节点的生命周期依赖于创建它们的会话，一旦会话结束，临时节点将被自动删除，当然也可以手动删除，临时节点不允许拥有子节点</p>
+<p>永久节点：该节点的生命周期不依赖于会话，并且只有在客户端显示执行删除操作的时候，它们才能被删除</p>
+<p>Znode还有一个序列化的特性，如果创建的时候指定的话，该Znode的名字后面会自动追加一个不断增加的序列号。序列号对于此节点的父节点来说是唯一的，这样便会记录每个子节点创建的先后顺序。</p>
+<p>综上所述，总共有四种类型的数据</p>
+<ol>
+<li>persistent永久节点</li>
+<li>ephemepal临时节点</li>
+<li>persistent sequential永久节点，序列化</li>
+<li>ephemepal sequential临时节点，序列化</li>
+</ol>
+<h2 id="节点属性"><a href="#节点属性" class="headerlink" title="节点属性"></a>节点属性</h2><p>每个znode都包含了一些列的属性，通过命令get，可以获得节点的属性</p>
+<p>dataVersion:数据版本号，每次对节点进行set操作，dataVersion的值都会增加1(即使设置的是相同的数据)，可以有效避免数据更新时出现的先后顺序问题</p>
+<p>cversion:子节点的版本号，当znode的子节点有变化时，cversion的中就会增加1</p>
+<p>aclVersion:ACL的版本号</p>
+<p>cZxid:Znode创建的事务id</p>
+<p>mZxid：Znode被修改的事务id,即每次对znode的修改都会更新mZxid</p>
+<p>对于zk来说，每次的变化都会产生一个唯一的事务id,zxid(ZooKeeper Transaction Id)。通过zxid，可以确定更新操作的先后顺序。例如，如果zxid1小于zxid2,说明zxid1操作先于zxid2发生，zxid对于整个zk都是唯一的，即使操作的是不同的znode</p>
+<p>ctime：节点创建时的时间戳 </p>
+<p>mtime：节点最新一次更新发生时的时间戳</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">李上</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/07/08/zookeeper/">http://yoursite.com/2020/07/08/zookeeper/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com" target="_blank">定不辱使命</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/sharding-jdbc.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.jpg" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2020/07/20/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E9%97%B4%E4%BB%B6/"><img class="prev_cover lazyload" data-src="/img/sharding-jdbc.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">数据库中间件</div></div></a></div><div class="next-post pull_right"><a href="/2020/07/03/jvm/"><img class="next_cover lazyload" data-src="/img/jvm.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">JVM学习笔记</div></div></a></div></nav></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By 李上</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><i class="darkmode fa fa-sun-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js" ></script><script src="/js/utils.js" ></script><script src="/js/main.js" ></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>
